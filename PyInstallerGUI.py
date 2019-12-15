@@ -34,6 +34,7 @@ specPath = tmp + 'PyInstaller'
 print(dirPath)
 
 p = subprocess.Popen([pyinstallerPath, file_path, '-F', '--clean', '--distpath=' + dirPath, '--workpath=' + buildPath, '--specpath=' + specPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
 _stdoutput, _erroutput = p.communicate()
 _stdoutput = _stdoutput.decode("Big5")
 _erroutput = _erroutput.decode("Big5")
