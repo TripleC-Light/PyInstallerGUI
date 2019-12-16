@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<html lang="zh-Hant">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>PyInstaller GUI</title>
+	<script language=javascript>
+        $(document).ready(function (){
+			if(isMobileOrNot()){
+				console.log('This is Mobile')
+			}else{
+				console.log('This is PC or else')
+			}
+        });
+		function isMobileOrNot() {
+			try{ document.createEvent("TouchEvent"); return true; }
+			catch(e){ return false;}
+		}
+
+	</script>
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+		.cBody{
+		    font-family: 'Noto Sans TC', sans-serif;
+		    background: #EEE;
+		}
+	</style>
+</head>
+<body class="cBody">
+<center>
+	<div style="border:1px solid #000;width:50%; background-color:#FFF">
+		<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
+		<hr style="size:5px;width:95%;border-color:#000">
+		<div style='font-size:20px;display:inline-block;user-select: none;'>主程式：</div>
+		<div style="display:inline-block;border:1px solid #000;width:70%;height:25px"></div>
+		<div>開始</div>
+	</div>
+
+</center>
+</body>
+</html>
