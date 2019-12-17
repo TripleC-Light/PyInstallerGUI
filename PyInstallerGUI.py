@@ -1,7 +1,6 @@
 import tornado.ioloop
 import tornado.web
 import os
-# import sys
 import subprocess
 from tkinter import *
 from tkinter import filedialog
