@@ -17,11 +17,25 @@
 			try{ document.createEvent("TouchEvent"); return true; }
 			catch(e){ return false;}
 		}
+
+
+		function addPath(id, CMD){
+		    var xmlhttp;
+		    xmlhttp=new XMLHttpRequest();
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		        	var result = JSON.parse(xmlhttp.responseText);
+		        	document.getElementById(id).innerHTML = result.path;
+		        	console.log(result.path.length);
+		        }
+		    }
+		    xmlhttp.open("GET","/getPath?cmd="+CMD,true);
+		    xmlhttp.send();
+		}
 	</script>
 
 	<style type="text/css">
 		@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
-		/*@import url(https://assets.loupbrun.ca/fonts/booster/stylesheet.css);*/
 		.cBody{
 		    font-family: 'Noto Sans TC', sans-serif;
 		    background: #EEE;
@@ -53,71 +67,6 @@
 			user-select: none;
 			width: 40px;
 		}
-
-.iota .btn {
-  display: inline-block;
-  margin: 6px;
-  font-size: inherit;
-  line-height: 1.42;
-  padding: 0.6em 1.6em;
-  font-weight: normal;
-  border-width: 2px;
-  border-style: solid;
-  background: transparent;
-  border-radius: 1.46em;
-  cursor: pointer;
-  font-family: 'Noto Sans TC', sans-serif;
-  user-select: none;
-  vertical-align: bottom;
-  position: relative;
-  border-style: solid;
-  overflow: hidden;
-  transition: background-color 0.3s, color 0.3s;
-}
-.iota .btn.btn-disabled {
-  cursor: not-allowed;
-  opacity: 0.8;
-}
-.iota .btn.btn-disabled:active {
-  opacity: 0.6;
-}
-.iota .btn:hover:after {
-  transform: scaleX(1);
-  opacity: 1;
-  transition: transform 0.3s, opacity 0.3s;
-}
-.iota .btn:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-  border-radius: 1.46em;
-  transform: scaleX(0.7);
-  opacity: 0;
-  transition: transform 0.8s, opacity 0.3s;
-}
-
-.iota .btn-primary {
-  color: #52C11F;
-  border-color: #52C11F;
-}
-.iota .btn-primary:hover {
-  color: #E6EAEF;
-  background-color: #52C11F;
-}
-.iota .btn-primary:active {
-  background-color: #4cb41d;
-}
-.iota .btn-primary:active:after {
-  background-color: #4cb41d;
-}
-.iota .btn-primary:after {
-  background-color: #52C11F;
-}
 		.cOK{
 			border: 2px solid #F00;
 			border-radius: 20px;
@@ -139,12 +88,8 @@
 		<table style="width:95%">
 			<tr>
 				<td class="cItem">主程式</td>
-				<td style="width:60%; text-align:center"><div class="cInfoDiv">--none--</div></td>
-				<td>
-					<div class="iota">
-						<button class="btn btn-primary">Button</button>
-					</div>
-				</td>
+				<td style="width:60%; text-align:center"><div id='iMainPath' class="cInfoDiv">--none--</div></td>
+				<td><div class="cBtnAdd" onclick="addPath('iMainPath', 'getMainPath')">+</div></td>
 			</tr>
 			<tr>
 				<td class="cItem">Import Code</td>
