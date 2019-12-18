@@ -54,7 +54,7 @@ class GetPathHandler(tornado.web.RequestHandler):
         file_path = []
         if CMD == 'getMainPath':
             tkCase = 0
-        elif CMD == 'getMainPath':
+        elif CMD == 'getDataPath':
             tkCase = 2
         elif CMD == 'getMainPath':
             tkCase = 2
@@ -64,7 +64,7 @@ class GetPathHandler(tornado.web.RequestHandler):
         tk.lift()
         tk.attributes("-topmost", True)
         if tkCase == 0:
-            file_path.append(filedialog.askopenfilename())  # 取得檔案名
+            file_path.append(filedialog.askopenfilename(title='Select python file', filetypes=[('.py', '*.py')]))    # 取得檔案名
         elif tkCase == 1:
             file_path.append(filedialog.askdirectory())     # 取得路徑
         elif tkCase == 2:

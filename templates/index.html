@@ -24,14 +24,30 @@
 		    xmlhttp=new XMLHttpRequest();
 		    xmlhttp.onreadystatechange=function(){
 		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-		        	var result = JSON.parse(xmlhttp.responseText);
-		        	document.getElementById(id).innerHTML = result.path;
-		        	console.log(result.path.length);
+					var result = JSON.parse(xmlhttp.responseText);
+					console.log(result.path.length);
+		        	switch(id){
+		        		case 'iMainPath':
+		        			if( result.path!='' ){
+					        	document.getElementById(id).value = result.path;
+					        	delBtn(id, id + '_addBtn');
+					        	// addDelBtn();
+					        	// addEditBtn();
+					        	console.log("iMainPath= " + result.path);
+		        			}
+		        			break;
+		        	}
 		        }
 		    }
 		    xmlhttp.open("GET","/getPath?cmd="+CMD,true);
 		    xmlhttp.send();
 		}
+
+		function delBtn(id, btnId){
+			console.log(id);
+			document.getElementById(id + '_option').removeChild(document.getElementById(btnId));
+		}
+
 	</script>
 
 	<style type="text/css">
@@ -43,18 +59,43 @@
 		table, tr, td{
 			border: 1px solid #00F;
 		}
+
+		.cBorder{
+			border: 1px solid #00F;
+		}
+
+		.cPathBlock{
+			margin: 15px 0px;
+			width: 95%;
+		}
+
 		.cItem{
-			font-size: 25px;
+			display: inline-block;
+			font-size: 20px;
 			text-align: right;
-			width:20%;
+			vertical-align: middle;
+			width: 15%;
 		}
 		.cInfoDiv{
-			border: 2px solid #F00;
 			display: inline-block;
 			font-size: 25px;
 			height: 40px;
 			vertical-align: middle;
-			width: 95%;
+			width: 50%;
+		}
+		.cInfoInput{
+			border: 2px solid #F00;
+			display: inline-block;
+			font-size: 20px;
+			height: 40px;
+			vertical-align: middle;
+			width: 60%;
+		}
+		.cOptionDiv{
+			display: inline-block;
+			text-align: left;
+			vertical-align: middle;
+			width: 15%;
 		}
 		.cBtnAdd{
 			border: 2px solid #F00;
@@ -62,7 +103,6 @@
 			color: #F00;
 			font-size: 30px;
 			height: 40px;
-			margin: 15px 0px;
 			text-align: center;
 			user-select: none;
 			width: 40px;
@@ -85,35 +125,43 @@
 	<div style="border:1px solid #000;width:50%; background-color:#FFF">
 		<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
 		<hr style="size:5px;width:95%;border-color:#000">
-		<table style="width:95%">
-			<tr>
-				<td class="cItem">主程式</td>
-				<td style="width:60%; text-align:center"><div id='iMainPath' class="cInfoDiv">--none--</div></td>
-				<td><div class="cBtnAdd" onclick="addPath('iMainPath', 'getMainPath')">+</div></td>
-			</tr>
-			<tr>
-				<td class="cItem">Import Code</td>
-				<td style="width:60%; text-align:center"><div class="cInfoDiv">--none--</div></td>
-				<td><div class="cBtnAdd">+</div></td>
-			</tr>
-			<tr>
-				<td class="cItem">資料/資料夾</td>
-				<td style="width:60%; text-align:center"><div class="cInfoDiv">--none--</div></td>
-				<td><div class="cBtnAdd">+</div></td>
-			</tr>
-			<tr>
-				<td class="cItem">進階選項</td>
-				<td style="width:60%; text-align:center"></td>
-				<td><div class="cBtnAdd" style="display:none"></div></td>
-			</tr>
-			<tr>
-				<td class="cItem">&nbsp</td>
-				<td style="width:60%; text-align:center"><center><div class="cOK">執　行</div></center></td>
-				<td><div class="cBtnAdd" style="display:none"></div></td>
-			</tr>
-		</table>
-	</div>
 
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">主程式</div>
+			<input class="cInfoInput cBorder" type="text" id="iMainPath" dir='rtl' value=''/>
+			<div id='iMainPath_option' class='cOptionDiv cBorder'>
+				<div id='iMainPath_addBtn' class="cBtnAdd" onclick="addPath('iMainPath', 'getMainPath')">+</div>
+			</div>
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">Import Code</div>
+			<input class="cInfoInput cBorder" type="text" id="iImportPath" dir='rtl' value=''/>
+			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iImportPath', 'getImportPath')">+</div></div>
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">資料</div>
+			<input class="cInfoInput cBorder" type="text" id="iDataPath" dir='rtl' value=''/>
+			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iDataPath', 'getDataPath')">+</div></div>
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">資料夾</div>
+			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
+			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">進階選項</div>
+			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
+			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
+		</div>
+
+		<div style="border:1px solid #000;width:95%;margin:15px 0px;">
+			<div class="cOK">執　行</div>
+		</div>
+	</div>
 </center>
 </body>
 </html>
