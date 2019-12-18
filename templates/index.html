@@ -30,9 +30,9 @@
 		        		case 'iMainPath':
 		        			if( result.path!='' ){
 					        	document.getElementById(id).value = result.path;
-					        	delBtn(id, id + '_addBtn');
-					        	// addDelBtn();
-					        	// addEditBtn();
+					        	delBtn(id, 'add');
+					        	addBtn(id, 'del');
+					        	addBtn(id, 'edit');
 					        	console.log("iMainPath= " + result.path);
 		        			}
 		        			break;
@@ -43,10 +43,41 @@
 		    xmlhttp.send();
 		}
 
-		function delBtn(id, btnId){
+		function delPath(id){
+			document.getElementById(id).value = '';
+			console.log('delPath');
+		}
+
+		function editPath(id){
+			console.log('editPath');
+		}
+
+		function delBtn(id, action){
 			console.log(id);
+			var btnId = id + '_' + action + 'Btn';
 			document.getElementById(id + '_option').removeChild(document.getElementById(btnId));
 		}
+
+		function addBtn(id, action){
+			console.log(id);
+			var btnId = id + '_' + action + 'Btn';
+			var btnParent = document.getElementById(id + '_option');
+			var btn = document.createElement("div");
+			btn.setAttribute("id", btnId);
+			btn.setAttribute("class", "cBtn");
+			switch(action){
+				case 'del':
+					btn.innerHTML = '-';
+					btn.onclick= function(){ delPath(id) };
+					break;
+				case 'edit':
+					btn.innerHTML = 'E';
+					btn.onclick= function(){ addPath(id, 'getMainPath') };
+					break;
+			}
+			btnParent.appendChild(btn);
+		}
+
 
 	</script>
 
@@ -97,10 +128,11 @@
 			vertical-align: middle;
 			width: 15%;
 		}
-		.cBtnAdd{
+		.cBtn{
 			border: 2px solid #F00;
 			border-radius: 20px;
 			color: #F00;
+			display: inline-block;
 			font-size: 30px;
 			height: 40px;
 			text-align: center;
@@ -130,32 +162,32 @@
 			<div class="cItem cBorder">主程式</div>
 			<input class="cInfoInput cBorder" type="text" id="iMainPath" dir='rtl' value=''/>
 			<div id='iMainPath_option' class='cOptionDiv cBorder'>
-				<div id='iMainPath_addBtn' class="cBtnAdd" onclick="addPath('iMainPath', 'getMainPath')">+</div>
+				<div id='iMainPath_addBtn' class="cBtn" onclick="addPath('iMainPath', 'getMainPath')">+</div>
 			</div>
 		</div>
 
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">Import Code</div>
 			<input class="cInfoInput cBorder" type="text" id="iImportPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iImportPath', 'getImportPath')">+</div></div>
+			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iImportPath', 'getImportPath')">+</div></div>
 		</div>
 
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">資料</div>
 			<input class="cInfoInput cBorder" type="text" id="iDataPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iDataPath', 'getDataPath')">+</div></div>
+			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iDataPath', 'getDataPath')">+</div></div>
 		</div>
 
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">資料夾</div>
 			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
+			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
 		</div>
 
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">進階選項</div>
 			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtnAdd" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
+			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
 		</div>
 
 		<div style="border:1px solid #000;width:95%;margin:15px 0px;">
