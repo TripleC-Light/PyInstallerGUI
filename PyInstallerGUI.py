@@ -1,5 +1,6 @@
 import tornado.ioloop
 import tornado.web
+from tornado.escape import json_decode
 import os
 import subprocess
 from tkinter import *
@@ -7,42 +8,6 @@ from tkinter import filedialog
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        # scriptsPath = sys.executable
-        # pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
-        # print(pyinstallerPath)
-        #
-        # tkCase = 0
-        # tk = Tk()
-        # tk.withdraw()
-        # tk.lift()
-        # tk.attributes("-topmost", True)
-        # if tkCase == 0:
-        #     file_path = filedialog.askopenfilename()    # 取得檔案名
-        # elif tkCase == 1:
-        #     file_path = filedialog.askdirectory()       # 取得路徑
-        # elif tkCase == 2:
-        #     file_path = filedialog.askopenfilenames()   # 取得多檔案路徑
-        #     for f in file_path:
-        #         print(f)
-        # tk.destroy()
-        # print(file_path)
-        #
-        # dirPath = file_path.split('/')
-        # tmp = ''
-        # for i in range(0, len(dirPath)-1):
-        #     tmp = tmp + dirPath[i] + '/'
-        # dirPath = tmp + 'PyInstaller/dist'
-        # buildPath = tmp + 'PyInstaller/build'
-        # specPath = tmp + 'PyInstaller'
-        # print(dirPath)
-        #
-        # p = subprocess.Popen([pyinstallerPath, file_path, '-F', '--clean', '--distpath=' + dirPath, '--workpath=' + buildPath, '--specpath=' + specPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #
-        # _stdoutput, _erroutput = p.communicate()
-        # _stdoutput = _stdoutput.decode("Big5")
-        # _erroutput = _erroutput.decode("Big5")
-        # print('_stdoutput: ', _stdoutput)
-        # print('_erroutput: ', _erroutput)
         self.render('index.html')
 
 class GetPathHandler(tornado.web.RequestHandler):
@@ -52,6 +17,7 @@ class GetPathHandler(tornado.web.RequestHandler):
         tkCase = 0
         resultData = {}
         file_path = []
+        CMD = CMD.split('_')[0]
         if CMD == 'iMainPath':
             tkCase = 0
         elif CMD == 'iImportPath':
@@ -79,10 +45,56 @@ class GetPathHandler(tornado.web.RequestHandler):
         resultData['path'] = file_path
         self.write(resultData)
 
+
+class SubmitHandler(tornado.web.RequestHandler):
+    def get(self):
+        print('----------------------------------------------------------------')
+        jsonData = json_decode(self.get_argument('data'))
+        print(jsonData)
+        mainPath = jsonData['mainPath']
+        dataPathList = jsonData['dataPathList']
+        folderPathList = jsonData['folderPathList']
+
+        scriptsPath = sys.executable
+        pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
+        print(pyinstallerPath)
+
+        file_path = mainPath
+        print(file_path)
+
+        distPath = file_path.split('/')
+        tmp = ''
+        for i in range(0, len(distPath)-1):
+            tmp = tmp + distPath[i] + '/'
+        distPath = tmp + 'PyInstaller/dist'
+        buildPath = tmp + 'PyInstaller/build'
+        specPath = tmp + 'PyInstaller'
+
+        p = subprocess.Popen([pyinstallerPath, file_path, '-F', '--clean', '--distpath=' + distPath, '--workpath=' + buildPath, '--specpath=' + specPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _stdoutput, _erroutput = p.communicate()
+        _stdoutput = _stdoutput.decode("Big5")
+        _erroutput = _erroutput.decode("Big5")
+        print('_stdoutput: ', _stdoutput)
+        print('_erroutput: ', _erroutput)
+
+        for folderPath in folderPathList:
+            folderName = folderPath.split('/')
+            folderName = folderName[len(folderName)-1]
+            newFolder = tmp + 'PyInstaller/dist/' + folderName
+            subprocess.Popen(['md', newFolder], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.Popen(['xcopy', folderPath, newFolder, '/e', '/s'], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        for dataPath in dataPathList:
+            dataPath = dataPath.replace('/', '\\')
+            distPath = distPath.replace('/', '\\')
+            subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+
 if __name__ == "__main__":
     try:
         handlers = [[r'/', IndexHandler],
                     [r'/getPath', GetPathHandler],
+                    [r'/submit', SubmitHandler],
                     [r'/favicon.ico', tornado.web.StaticFileHandler, {'path': './static/favicon.ico'}]]
 
         webApp = tornado.web.Application(
