@@ -6,20 +6,8 @@
 
 	<title>PyInstaller GUI</title>
 	<script language=javascript>
-        $(document).ready(function (){
-			if(isMobileOrNot()){
-				console.log('This is Mobile')
-			}else{
-				console.log('This is PC or else')
-			}
-        });
-		function isMobileOrNot() {
-			try{ document.createEvent("TouchEvent"); return true; }
-			catch(e){ return false;}
-		}
 
-
-		function addPath(id, CMD){
+		function addPath(id){
 		    var xmlhttp;
 		    xmlhttp=new XMLHttpRequest();
 		    xmlhttp.onreadystatechange=function(){
@@ -30,22 +18,42 @@
 		        		case 'iMainPath':
 		        			if( result.path!='' ){
 					        	document.getElementById(id).value = result.path;
-					        	delBtn(id, 'add');
+					        	// delBtn(id, 'add');
 					        	addBtn(id, 'del');
 					        	addBtn(id, 'edit');
 					        	console.log("iMainPath= " + result.path);
 		        			}
 		        			break;
+
+		        		case 'iImportPath':
+		        			if( result.path!='' ){
+					        	document.getElementById(id).value = result.path;
+					        	addBtn(id, 'del');
+					        	addBtn(id, 'edit');
+					        	console.log("iImportPath= " + result.path);
+		        			}
+		        			break;
 		        	}
 		        }
 		    }
-		    xmlhttp.open("GET","/getPath?cmd="+CMD,true);
+		    xmlhttp.open("GET","/getPath?cmd="+id,true);
 		    xmlhttp.send();
 		}
 
 		function delPath(id){
 			document.getElementById(id).value = '';
 			console.log('delPath');
+			switch(id){
+				case 'iMainPath':
+					addBtn(id, 'add');
+					delBtn(id, 'del');
+					delBtn(id, 'edit');
+					break;
+				case 'iImportPath':
+					delBtn(id, 'del');
+					delBtn(id, 'edit');
+					break;
+			}
 		}
 
 		function editPath(id){
@@ -66,15 +74,20 @@
 			btn.setAttribute("id", btnId);
 			btn.setAttribute("class", "cBtn");
 			switch(action){
+				case 'add':
+					btn.innerHTML = '+';
+					btn.onclick= function(){ addPath(id) };
+					break;
 				case 'del':
 					btn.innerHTML = '-';
 					btn.onclick= function(){ delPath(id) };
 					break;
 				case 'edit':
 					btn.innerHTML = 'E';
-					btn.onclick= function(){ addPath(id, 'getMainPath') };
+					btn.onclick= function(){ addPath(id) };
 					break;
 			}
+
 			btnParent.appendChild(btn);
 		}
 
@@ -162,14 +175,16 @@
 			<div class="cItem cBorder">主程式</div>
 			<input class="cInfoInput cBorder" type="text" id="iMainPath" dir='rtl' value=''/>
 			<div id='iMainPath_option' class='cOptionDiv cBorder'>
-				<div id='iMainPath_addBtn' class="cBtn" onclick="addPath('iMainPath', 'getMainPath')">+</div>
+				<div id='iMainPath_addBtn' class="cBtn" onclick="addPath('iMainPath')">+</div>
 			</div>
 		</div>
 
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">Import Code</div>
 			<input class="cInfoInput cBorder" type="text" id="iImportPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iImportPath', 'getImportPath')">+</div></div>
+			<div id='iImportPath_option' class='cOptionDiv cBorder'>
+				<div id='iImportPath_addBtn' class="cBtn" onclick="addPath('iImportPath')">+</div>
+			</div>
 		</div>
 
 		<div class='cPathBlock cBorder'>

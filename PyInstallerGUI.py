@@ -52,8 +52,11 @@ class GetPathHandler(tornado.web.RequestHandler):
         tkCase = 0
         resultData = {}
         file_path = []
-        if CMD == 'getMainPath':
+        if CMD == 'iMainPath':
             tkCase = 0
+        if CMD == 'iImportPath':
+            tkCase = 0
+
         elif CMD == 'getDataPath':
             tkCase = 2
         elif CMD == 'getMainPath':
