@@ -54,12 +54,11 @@ class GetPathHandler(tornado.web.RequestHandler):
         file_path = []
         if CMD == 'iMainPath':
             tkCase = 0
-        if CMD == 'iImportPath':
+        elif CMD == 'iImportPath':
             tkCase = 0
-
-        elif CMD == 'getDataPath':
-            tkCase = 2
-        elif CMD == 'getMainPath':
+        elif CMD == 'iDataPath':
+            tkCase = 1
+        elif CMD == 'iFolderPath':
             tkCase = 2
 
         tk = Tk()
@@ -67,11 +66,13 @@ class GetPathHandler(tornado.web.RequestHandler):
         tk.lift()
         tk.attributes("-topmost", True)
         if tkCase == 0:
-            file_path.append(filedialog.askopenfilename(title='Select python file', filetypes=[('.py', '*.py')]))    # 取得檔案名
+            file_path.append(filedialog.askopenfilename(title='Select python file', filetypes=[('.py', '*.py')]))       # 取得檔案名
         elif tkCase == 1:
-            file_path.append(filedialog.askdirectory())     # 取得路徑
-        elif tkCase == 2:
-            file_path = filedialog.askopenfilenames()   # 取得多檔案路徑
+            file_path.append(filedialog.askopenfilename(title='Select a file'))                                         # 取得檔案名
+            # file_path.append(filedialog.askdirectory())     # 取得路徑
+        elif tkCase == 2:                                # 取得檔案名
+            file_path.append(filedialog.askdirectory(title='Select a Folder'))                                          # 取得資料夾路徑
+            # file_path = filedialog.askopenfilenames()   # 取得多檔案路徑
 
         tk.destroy()
         print(file_path)

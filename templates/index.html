@@ -3,97 +3,7 @@
 <html lang="zh-Hant">
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<title>PyInstaller GUI</title>
-	<script language=javascript>
-
-		function addPath(id){
-		    var xmlhttp;
-		    xmlhttp=new XMLHttpRequest();
-		    xmlhttp.onreadystatechange=function(){
-		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var result = JSON.parse(xmlhttp.responseText);
-					console.log(result.path.length);
-		        	switch(id){
-		        		case 'iMainPath':
-		        			if( result.path!='' ){
-					        	document.getElementById(id).value = result.path;
-					        	// delBtn(id, 'add');
-					        	addBtn(id, 'del');
-					        	addBtn(id, 'edit');
-					        	console.log("iMainPath= " + result.path);
-		        			}
-		        			break;
-
-		        		case 'iImportPath':
-		        			if( result.path!='' ){
-					        	document.getElementById(id).value = result.path;
-					        	addBtn(id, 'del');
-					        	addBtn(id, 'edit');
-					        	console.log("iImportPath= " + result.path);
-		        			}
-		        			break;
-		        	}
-		        }
-		    }
-		    xmlhttp.open("GET","/getPath?cmd="+id,true);
-		    xmlhttp.send();
-		}
-
-		function delPath(id){
-			document.getElementById(id).value = '';
-			console.log('delPath');
-			switch(id){
-				case 'iMainPath':
-					addBtn(id, 'add');
-					delBtn(id, 'del');
-					delBtn(id, 'edit');
-					break;
-				case 'iImportPath':
-					delBtn(id, 'del');
-					delBtn(id, 'edit');
-					break;
-			}
-		}
-
-		function editPath(id){
-			console.log('editPath');
-		}
-
-		function delBtn(id, action){
-			console.log(id);
-			var btnId = id + '_' + action + 'Btn';
-			document.getElementById(id + '_option').removeChild(document.getElementById(btnId));
-		}
-
-		function addBtn(id, action){
-			console.log(id);
-			var btnId = id + '_' + action + 'Btn';
-			var btnParent = document.getElementById(id + '_option');
-			var btn = document.createElement("div");
-			btn.setAttribute("id", btnId);
-			btn.setAttribute("class", "cBtn");
-			switch(action){
-				case 'add':
-					btn.innerHTML = '+';
-					btn.onclick= function(){ addPath(id) };
-					break;
-				case 'del':
-					btn.innerHTML = '-';
-					btn.onclick= function(){ delPath(id) };
-					break;
-				case 'edit':
-					btn.innerHTML = 'E';
-					btn.onclick= function(){ addPath(id) };
-					break;
-			}
-
-			btnParent.appendChild(btn);
-		}
-
-
-	</script>
-
 	<style type="text/css">
 		@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 		.cBody{
@@ -120,37 +30,40 @@
 			vertical-align: middle;
 			width: 15%;
 		}
-		.cInfoDiv{
+/*		.cInfoDiv{
 			display: inline-block;
 			font-size: 25px;
 			height: 40px;
 			vertical-align: middle;
 			width: 50%;
-		}
+		}*/
 		.cInfoInput{
 			border: 2px solid #F00;
 			display: inline-block;
 			font-size: 20px;
-			height: 40px;
+			height: 35px;
+			margin: 3px;
 			vertical-align: middle;
 			width: 60%;
 		}
 		.cOptionDiv{
 			display: inline-block;
+			font-size: 20px;
 			text-align: left;
 			vertical-align: middle;
-			width: 15%;
+			width: 20%;
 		}
 		.cBtn{
-			border: 2px solid #F00;
-			border-radius: 20px;
+			border: 1px solid #F00;
+			border-radius: 15px;
 			color: #F00;
 			display: inline-block;
-			font-size: 30px;
-			height: 40px;
+			font-size: 20px;
+			height: 30px;
+			margin: 0px 2px;
 			text-align: center;
 			user-select: none;
-			width: 40px;
+			width: 30px;
 		}
 		.cOK{
 			border: 2px solid #F00;
@@ -164,50 +77,209 @@
 			width: 50%;
 		}
 	</style>
+
+	<script language=javascript>
+		var listItem = [['主程式','iMainPath'],
+						['Import', 'iImportPath_0'],
+						['資料', 'iDataPath_0'],
+						['資料夾', 'iFolderPath_0'],
+						['進階選項', 'advanced']];
+		var importIdx = 1;
+		var dataIdx = 1;
+		var folderIdx = 1;
+
+		$(document).ready(function (){
+			init();
+        });
+
+        function init(){
+        	listItem.forEach(function(item) {
+				createPathBlock('mainDiv', item);
+        	})
+        }
+
+		function btnProcess(id, action){
+			idClass = id.split('_')[0];
+			console.log('idClass: ' + idClass);
+			clrBtn(id);
+        	switch(idClass){
+        		case 'iMainPath':
+        			switch(action){
+        				case 'add':
+				        	newBtn(id, 'del');
+				        	newBtn(id, 'edit');
+        					break;
+        				case 'del':
+        					newBtn(id, 'add');
+        			}
+        			break;
+
+        		case 'iImportPath':
+        			switch(action){
+        				case 'add':
+				        	newBtn(id, 'del');
+				        	newBtn(id, 'edit');
+
+				        	var newId = id.split('_')[0] + '_' + importIdx;
+				        	var frameId = id.split('_')[0] + '_' + 0;
+				        	console.log('newId: ' + newId);
+							createItem(frameId+'_frame', ['','']);
+							createPath(frameId+'_frame', newId);
+							createOption(frameId+'_frame', newId);
+							newBtn(newId, 'add');
+				        	importIdx += 1;
+        					break;
+        				case 'del':
+        					newBtn(id, 'add');
+        					console.log(id);
+        					var frameId = id.split('_')[0] + '_' + 0;
+        					console.log(frameId);
+        					document.getElementById(frameId + '_frame').removeChild(id + '_option');
+        			}
+        			break;
+
+        		case 'iDataPath':
+        			switch(action){
+        				case 'add':
+        					newBtn(id, 'add');
+				        	newBtn(id, 'del');
+				        	newBtn(id, 'edit');
+        					break;
+        				case 'del':
+        					newBtn(id, 'add');
+        			}
+        			break;
+
+        		case 'iFolderPath':
+        			switch(action){
+        				case 'add':
+        					newBtn(id, 'add');
+				        	newBtn(id, 'del');
+				        	newBtn(id, 'edit');
+        					break;
+        				case 'del':
+        					newBtn(id, 'add');
+        			}
+        			break;
+        	}
+		}
+
+		function addPath(id){
+		    var xmlhttp;
+		    xmlhttp=new XMLHttpRequest();
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var result = JSON.parse(xmlhttp.responseText);
+					if( result.path!='' ){
+						console.log(id + "= " + result.path);
+						document.getElementById(id).value = result.path;
+						btnProcess(id, 'add');
+			        }
+		        }
+		    }
+		    xmlhttp.open("GET","/getPath?cmd="+id,true);
+		    xmlhttp.send();
+		}
+
+		function delPath(id){
+			document.getElementById(id).value = '';
+			console.log('delPath');
+			btnProcess(id, 'del');
+		}
+
+		function clrBtn(id){
+			document.getElementById(id + '_option').innerHTML = '';
+		}
+
+		function newBtn(id, action){
+			var btnId = id + '_' + action + 'Btn';
+			var btnParent = document.getElementById(id + '_option');
+			var btn = document.createElement("div");
+			btn.setAttribute("id", btnId);
+			btn.setAttribute("class", "cBtn");
+			switch(action){
+				case 'add':
+					btn.innerHTML = '+';
+					btn.onclick= function(){ addPath(id) };
+					break;
+				case 'del':
+					btn.innerHTML = '-';
+					btn.onclick= function(){ delPath(id) };
+					break;
+				case 'edit':
+					btn.innerHTML = 'E';
+					btn.onclick= function(){ addPath(id) };
+					break;
+			}
+			btnParent.appendChild(btn);
+		}
+
+		// Struct show below: 
+		// <div class='cPathBlock cBorder'>
+		// 	<div class="cItem cBorder">主程式</div>
+		// 	<input class="cInfoInput cBorder" type="text" id="iMainPath" dir='rtl' value=''/>
+		// 	<div id='iMainPath_option' class='cOptionDiv cBorder'>
+		// 		<div id='iMainPath_addBtn' class="cBtn" onclick="addPath('iMainPath')">+</div>
+		// 	</div>
+		// </div>
+		function createPathBlock(parent, item){
+			var id = item[1];
+			createFrame(parent, id);
+			createItem(id+'_frame', item);
+			createPath(id+'_frame', id);
+			createOption(id+'_frame', id);
+			newBtn(id, 'add');
+		}
+		function createFrame(parent, id){
+			var blockId = id + '_frame';
+			var parent = document.getElementById(parent);
+			var block = document.createElement('div');
+			block.setAttribute("id", blockId);
+			block.setAttribute('class', 'cPathBlock cBorder');
+			parent.appendChild(block);
+		}
+		function createItem(parent, item){
+			var id = item[1];
+			var blockId = id + '_item';
+			var parent = document.getElementById(parent);
+			var block = document.createElement('div');
+			block.setAttribute("id", blockId);
+			block.setAttribute('class', 'cItem cBorder');
+			block.innerHTML = item[0];
+			parent.appendChild(block);
+		}
+		function createPath(parent, id){
+			var blockId = id;
+			var parent = document.getElementById(parent);
+			var block = document.createElement('input');
+			block.setAttribute("id", blockId);
+			block.setAttribute('class', 'cInfoInput cBorder');
+			block.setAttribute('type', 'text');
+			block.setAttribute('dir', 'rtl');
+			block.setAttribute('value', '');
+			parent.appendChild(block);
+		}
+		function createOption(parent, id){
+			var blockId = id + '_option';
+			var parent = document.getElementById(parent);
+			var block = document.createElement('div');
+			block.setAttribute("id", blockId);
+			block.setAttribute('class', 'cOptionDiv cBorder');
+			parent.appendChild(block);
+		}
+
+	</script>
 </head>
+
 <body class="cBody">
 <center>
-	<div style="border:1px solid #000;width:50%; background-color:#FFF">
+	<div id='mainDiv' style="border:1px solid #000;width:650px; background-color:#FFF">
 		<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
 		<hr style="size:5px;width:95%;border-color:#000">
 
-		<div class='cPathBlock cBorder'>
-			<div class="cItem cBorder">主程式</div>
-			<input class="cInfoInput cBorder" type="text" id="iMainPath" dir='rtl' value=''/>
-			<div id='iMainPath_option' class='cOptionDiv cBorder'>
-				<div id='iMainPath_addBtn' class="cBtn" onclick="addPath('iMainPath')">+</div>
-			</div>
-		</div>
-
-		<div class='cPathBlock cBorder'>
-			<div class="cItem cBorder">Import Code</div>
-			<input class="cInfoInput cBorder" type="text" id="iImportPath" dir='rtl' value=''/>
-			<div id='iImportPath_option' class='cOptionDiv cBorder'>
-				<div id='iImportPath_addBtn' class="cBtn" onclick="addPath('iImportPath')">+</div>
-			</div>
-		</div>
-
-		<div class='cPathBlock cBorder'>
-			<div class="cItem cBorder">資料</div>
-			<input class="cInfoInput cBorder" type="text" id="iDataPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iDataPath', 'getDataPath')">+</div></div>
-		</div>
-
-		<div class='cPathBlock cBorder'>
-			<div class="cItem cBorder">資料夾</div>
-			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
-		</div>
-
-		<div class='cPathBlock cBorder'>
-			<div class="cItem cBorder">進階選項</div>
-			<input class="cInfoInput cBorder" type="text" id="iFolderPath" dir='rtl' value=''/>
-			<div class='cOptionDiv cBorder'><div class="cBtn" onclick="addPath('iFolderPath', 'getFolderPath')">+</div></div>
-		</div>
-
-		<div style="border:1px solid #000;width:95%;margin:15px 0px;">
+		<!--<div style="border:1px solid #000;width:95%;margin:15px 0px;">
 			<div class="cOK">執　行</div>
-		</div>
+		</div> -->
 	</div>
 </center>
 </body>
