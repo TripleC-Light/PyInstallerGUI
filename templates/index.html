@@ -10,9 +10,6 @@
 		    font-family: 'Noto Sans TC', sans-serif;
 		    background: #EEE;
 		}
-		table, tr, td{
-			border: 1px solid #00F;
-		}
 		.cBorder{
 			border: 1px solid #00F;
 		}
@@ -78,8 +75,7 @@
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
-						['資料夾', 'iFolderPath_0'],
-						['進階選項', 'advanced']];
+						['資料夾', 'iFolderPath_0']];
 		var mainPath = '';
 		var importPathList = [];
 		var dataPathList = [];
@@ -292,9 +288,7 @@
 		    var xmlhttp;
 		    xmlhttp=new XMLHttpRequest();
 		    xmlhttp.onreadystatechange=function(){
-		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					// var result = JSON.parse(xmlhttp.responseText);
-		        }
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){}
 		    }
 		    xmlhttp.open("GET","/submit?data="+jsonToPC,true);
 		    xmlhttp.send();
@@ -304,14 +298,27 @@
 
 <body class="cBody">
 <center>
-	<div style="border:1px solid #000;width:650px; background-color:#FFF">
-		<div id='mainDiv' style="border:1px solid #000;">
+	<div class="cBorder" style="width:650px; background-color:#FFF">
+		<div id='mainDiv' class="cBorder">
 			<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
 			<hr style="size:5px;width:95%;border-color:#000">
-
 		</div>
-			
-		<div style="border:1px solid #000;width:95%;margin:15px 0px;">
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder">進階設定</div>
+			<div id='iAdvanced_list' class='cListBlock cBorder'>
+				<div class="cInfoInput cBorder" style='height:150px;width:95%;text-align:left;' id="iAdvanced_path">
+					&nbsp> 生成檔資料夾名稱:
+					<input class='cInfoInput cBorder' style='width:200px;border:1px solid #000;padding:0px 5px;' type='text' id='iSaveName' placeholder="預設:PyInstaller"/><br>
+					&nbsp> 生成單一執行檔? <input type="radio" name="oneFile" value=1 />是 <input type="radio" name="oneFile" value=1 />否<br>
+					&nbsp> 生成執行檔名稱:
+					<input class='cInfoInput cBorder' style='width:200px;border:1px solid #000;padding:0px 5px;' type='text' id='iFileName' placeholder="預設與原檔名一樣"/><br>
+				</div>
+				<div id='iMainPath_option' class='cOptionDiv cBorder' style="width:0%"></div>
+			</div>
+		</div>
+
+		<div class="cBorder" style="width:95%;margin:15px 0px;">
 			<div class="cOK" onclick="submit()">執　行</div>
 		</div> 
 	</div>
