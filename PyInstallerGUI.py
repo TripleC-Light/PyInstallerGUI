@@ -35,10 +35,8 @@ class GetPathHandler(tornado.web.RequestHandler):
             file_path.append(filedialog.askopenfilename(title='Select python file', filetypes=[('.py', '*.py')]))       # 取得檔案名
         elif tkCase == 1:
             file_path.append(filedialog.askopenfilename(title='Select a file'))                                         # 取得檔案名
-            # file_path.append(filedialog.askdirectory())     # 取得路徑
-        elif tkCase == 2:                                # 取得檔案名
+        elif tkCase == 2:
             file_path.append(filedialog.askdirectory(title='Select a Folder'))                                          # 取得資料夾路徑
-            # file_path = filedialog.askopenfilenames()   # 取得多檔案路徑
 
         tk.destroy()
         print(file_path)
