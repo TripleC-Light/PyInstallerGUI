@@ -54,6 +54,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         folderName = jsonData['folderName']
         optionList = jsonData['optionList']
         mainPath = jsonData['mainPath']
+        importPathList = jsonData['importPathList']
         dataPathList = jsonData['dataPathList']
         folderPathList = jsonData['folderPathList']
 
@@ -62,7 +63,6 @@ class SubmitHandler(tornado.web.RequestHandler):
         CMD_List.append(pyinstallerPath)
         print(pyinstallerPath)
 
-        # file_path = mainPath
         CMD_List.append(mainPath)
         print(mainPath)
 
@@ -75,6 +75,9 @@ class SubmitHandler(tornado.web.RequestHandler):
         distPath = tmp + folderName + '/dist'
         buildPath = tmp + folderName + '/build'
         specPath = tmp + folderName
+
+        for importPath in importPathList:
+            CMD_List.append('--hiddenimport=' + importPath)
 
         for option in optionList:
             if option != '':
@@ -94,12 +97,12 @@ class SubmitHandler(tornado.web.RequestHandler):
         print('_stdoutput: ', _stdoutput)
         print('_erroutput: ', _erroutput)
 
-        for folderPath in folderPathList:
-            folderName = folderPath.split('/')
-            folderName = folderName[len(folderName)-1]
-            newFolder = tmp + 'PyInstaller/dist/' + folderName
+        for userFolderPath in folderPathList:
+            userFolderName = userFolderPath.split('/')
+            userFolderName = userFolderName[len(userFolderName)-1]
+            newFolder = tmp + folderName + '/dist/' + userFolderName
             subprocess.Popen(['md', newFolder], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            subprocess.Popen(['xcopy', folderPath, newFolder, '/e', '/s'], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.Popen(['xcopy', userFolderPath, newFolder, '/e', '/s'], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         for dataPath in dataPathList:
             dataPath = dataPath.replace('/', '\\')
