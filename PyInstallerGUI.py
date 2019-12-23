@@ -47,28 +47,47 @@ class GetPathHandler(tornado.web.RequestHandler):
 class SubmitHandler(tornado.web.RequestHandler):
     def get(self):
         print('----------------------------------------------------------------')
+        CMD_List = []
         jsonData = json_decode(self.get_argument('data'))
         print(jsonData)
+        fileName = jsonData['fileName']
+        folderName = jsonData['folderName']
+        optionList = jsonData['optionList']
         mainPath = jsonData['mainPath']
         dataPathList = jsonData['dataPathList']
         folderPathList = jsonData['folderPathList']
 
         scriptsPath = sys.executable
         pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
+        CMD_List.append(pyinstallerPath)
         print(pyinstallerPath)
 
-        file_path = mainPath
-        print(file_path)
+        # file_path = mainPath
+        CMD_List.append(mainPath)
+        print(mainPath)
 
-        distPath = file_path.split('/')
+        if folderName == '':
+            folderName = 'PyInstaller'
+        distPath = mainPath.split('/')
         tmp = ''
         for i in range(0, len(distPath)-1):
             tmp = tmp + distPath[i] + '/'
-        distPath = tmp + 'PyInstaller/dist'
-        buildPath = tmp + 'PyInstaller/build'
-        specPath = tmp + 'PyInstaller'
+        distPath = tmp + folderName + '/dist'
+        buildPath = tmp + folderName + '/build'
+        specPath = tmp + folderName
 
-        p = subprocess.Popen([pyinstallerPath, file_path, '-F', '--clean', '--distpath=' + distPath, '--workpath=' + buildPath, '--specpath=' + specPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        for option in optionList:
+            if option != '':
+                CMD_List.append(option)
+
+        CMD_List.append('--distpath=' + distPath)
+        CMD_List.append('--workpath=' + buildPath)
+        CMD_List.append('--specpath=' + specPath)
+
+        if fileName != '':
+            CMD_List.append('-n ' + fileName)
+
+        p = subprocess.Popen(CMD_List, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _stdoutput, _erroutput = p.communicate()
         _stdoutput = _stdoutput.decode("Big5")
         _erroutput = _erroutput.decode("Big5")
