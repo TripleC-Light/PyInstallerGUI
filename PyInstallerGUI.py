@@ -26,6 +26,8 @@ class GetPathHandler(tornado.web.RequestHandler):
             tkCase = 1
         elif CMD == 'iFolderPath':
             tkCase = 2
+        elif CMD == 'iIcon':
+            tkCase = 3
 
         tk = Tk()
         tk.withdraw()
@@ -36,7 +38,9 @@ class GetPathHandler(tornado.web.RequestHandler):
         elif tkCase == 1:
             file_path.append(filedialog.askopenfilename(title='Select a file'))                                         # 取得檔案名
         elif tkCase == 2:
-            file_path.append(filedialog.askdirectory(title='Select a Folder'))                                          # 取得資料夾路徑
+            file_path.append(filedialog.askdirectory(title='Select a Folder'))
+        elif tkCase == 3:
+            file_path.append(filedialog.askopenfilename(title='Select Icon file', filetypes=[('Icon', '*.ico')]))       # 取得檔案名                                          # 取得資料夾路徑
 
         tk.destroy()
         print(file_path)
@@ -57,6 +61,8 @@ class SubmitHandler(tornado.web.RequestHandler):
         importPathList = jsonData['importPathList']
         dataPathList = jsonData['dataPathList']
         folderPathList = jsonData['folderPathList']
+        iconPath = jsonData['iconPath']
+        print('iconPath:', iconPath)
 
         scriptsPath = sys.executable
         pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
@@ -89,6 +95,10 @@ class SubmitHandler(tornado.web.RequestHandler):
 
         if fileName != '':
             CMD_List.append('-n ' + fileName)
+
+        if iconPath != '':
+            iconPath = iconPath.replace('/', '\\')
+            CMD_List.append('--icon=' + iconPath)
 
         p = subprocess.Popen(CMD_List, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _stdoutput, _erroutput = p.communicate()

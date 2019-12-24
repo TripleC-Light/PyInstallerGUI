@@ -96,6 +96,7 @@
 		var importPathList = [];
 		var dataPathList = [];
 		var folderPathList = [];
+		var iconPath = '';
 
 		$(document).ready(function (){
 			init();
@@ -111,7 +112,7 @@
 			idClass = id.split('_')[0];
 			console.log('idClass: ' + idClass);
 			clrBtn(id);
-			if( idClass=='iMainPath' ){
+			if( idClass=='iMainPath' || idClass=='iIcon' ){
 				if( action=='add' || action=='edit' ){
 		        	newBtn(id, 'del');
 		        	newBtn(id, 'edit');
@@ -173,7 +174,9 @@
 		}
 
 		function clrBtn(id){
-			document.getElementById(id + '_option').innerHTML = '';
+			if( document.getElementById(id + '_option') ){
+				document.getElementById(id + '_option').innerHTML = '';
+			}
 		}
 
 		function newBtn(id, action){
@@ -299,7 +302,8 @@
 				mainPath: mainPath,
 				importPathList: importPathList,
 				dataPathList: dataPathList,
-				folderPathList: folderPathList
+				folderPathList: folderPathList,
+				iconPath: iconPath
 			}
 
 			allData.fileName = document.getElementById('iFileName').value;
@@ -354,7 +358,10 @@
 
 					<div class="cAdvanced cBorder">&nbsp> 自訂 icon:</div>
 					<div class="cAdvanced cBorder" style="width:250px">
-						<input class='cAdvancedInput cBorder' type='text' id='iFileName' placeholder=""/>
+						<input class='cAdvancedInput cBorder' style='width:150px' dir='rtl' type='text' id='iIcon_path'/>
+						<div id='iIcon_option' class='cOptionDiv cBorder' style='width:auto'>
+							<div id='iIcon_addBtn' class="cBtn" onclick="editPath('iIcon', 'add')">+</div>
+						</div>
 					</div>
 				</div>
 				<div id='iMainPath_option' class='cOptionDiv cBorder' style="width:0%"></div>
