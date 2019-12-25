@@ -159,6 +159,13 @@
 					if( result.path!='' ){
 						console.log(id + "= " + result.path);
 						document.getElementById(id+'_path').value = result.path;
+						if( id=='iIcon' ){
+							var iconName = document.getElementById(id+'_path').value;
+							iconName = iconName.split('/');
+							iconName = iconName[iconName.length-1];
+							console.log(iconName);
+							document.getElementById('iIconPic').src = '/static/tmp/' + iconName;
+						}
 						btnProcess(id, action);
 			        }
 		        }
@@ -310,6 +317,7 @@
 			allData.folderName = document.getElementById('iFolderName').value;
 			allData.optionList.push($("[name='oneFile']:checked").val());
 			allData.optionList.push($("[name='clean']:checked").val());
+			allData.optionList.push($("[name='command']:checked").val());
 			var jsonToPC = JSON.stringify(allData);
 			console.log(jsonToPC);
 
@@ -335,10 +343,24 @@
 		<div class='cPathBlock cBorder'>
 			<div class="cItem cBorder">進階設定</div>
 			<div id='iAdvanced_list' class='cListBlock cBorder'>
-				<div class="cInfoInput cBorder" style='height:250px;width:95%;text-align:left;' id="iAdvanced_path">
-					<div class="cAdvanced cBorder">&nbsp> 生成檔資料夾名稱:</div>
+				<div class="cInfoInput cBorder" style='height:300px;width:95%;text-align:left;' id="iAdvanced_path">
+					<div class="cAdvanced cBorder">&nbsp> 資料夾名稱:</div>
 					<div class="cAdvanced cBorder" style="width:250px">
 						<input class='cAdvancedInput cBorder' type='text' id='iFolderName' placeholder="預設:PyInstaller"/>
+					</div>
+
+					<div class="cAdvanced cBorder">&nbsp> 執行檔名稱:</div>
+					<div class="cAdvanced cBorder" style="width:250px">
+						<input class='cAdvancedInput cBorder' type='text' id='iFileName' placeholder="預設與原檔名一樣"/>
+					</div>
+
+					<div class="cAdvanced cBorder">&nbsp> 自訂 icon:</div>
+					<div class="cAdvanced cBorder" style="width:250px">
+						<img id='iIconPic' src="/static/pythonIcon.png" border="" style="height:25px;width:25px;vertical-align:middle;" />
+						<input class='cAdvancedInput cBorder' style='width:125px' dir='rtl' type='text' id='iIcon_path'/>
+						<div id='iIcon_option' class='cOptionDiv cBorder' style='width:auto'>
+							<div id='iIcon_addBtn' class="cBtn" onclick="editPath('iIcon', 'add')">+</div>
+						</div>
 					</div>
 
 					<div class="cAdvanced cBorder">&nbsp> 生成單一執行檔?</div>
@@ -346,23 +368,16 @@
 						<input type="radio" name="oneFile" value='-F' checked="true"/>是
 						<input type="radio" name="oneFile" value='' />否</div>
 
-					<div class="cAdvanced cBorder">&nbsp> 清除上一次生成檔</div>
+					<div class="cAdvanced cBorder">&nbsp> 清除前次生成檔</div>
 					<div class="cAdvanced cBorder" style="width:250px">
 						<input type="radio" name="clean" value='--clean' checked="true"/>是
 						<input type="radio" name="clean" value='' />否</div>
 
-					<div class="cAdvanced cBorder">&nbsp> 生成執行檔名稱:</div>
+					<div class="cAdvanced cBorder">&nbsp> 顯示命令視窗</div>
 					<div class="cAdvanced cBorder" style="width:250px">
-						<input class='cAdvancedInput cBorder' type='text' id='iFileName' placeholder="預設與原檔名一樣"/>
-					</div>
+						<input type="radio" name="command" value='-c' checked="true"/>是
+						<input type="radio" name="command" value='-w' />否</div>
 
-					<div class="cAdvanced cBorder">&nbsp> 自訂 icon:</div>
-					<div class="cAdvanced cBorder" style="width:250px">
-						<input class='cAdvancedInput cBorder' style='width:150px' dir='rtl' type='text' id='iIcon_path'/>
-						<div id='iIcon_option' class='cOptionDiv cBorder' style='width:auto'>
-							<div id='iIcon_addBtn' class="cBtn" onclick="editPath('iIcon', 'add')">+</div>
-						</div>
-					</div>
 				</div>
 				<div id='iMainPath_option' class='cOptionDiv cBorder' style="width:0%"></div>
 			</div>

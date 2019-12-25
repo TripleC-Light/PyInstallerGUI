@@ -5,6 +5,7 @@ import os
 import subprocess
 from tkinter import *
 from tkinter import filedialog
+from PIL import Image
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
@@ -40,7 +41,12 @@ class GetPathHandler(tornado.web.RequestHandler):
         elif tkCase == 2:
             file_path.append(filedialog.askdirectory(title='Select a Folder'))
         elif tkCase == 3:
-            file_path.append(filedialog.askopenfilename(title='Select Icon file', filetypes=[('Icon', '*.ico')]))       # 取得檔案名                                          # 取得資料夾路徑
+            file_path.append(filedialog.askopenfilename(title='Select Icon file', filetypes=[('Icon', '*.ico')]))       # 取得檔案名
+            im = Image.open(file_path[0])
+            iconName = file_path[0].split('/')
+            iconName = iconName[len(iconName)-1]
+            print(iconName)
+            im.save('./static/tmp/' + iconName)
 
         tk.destroy()
         print(file_path)
