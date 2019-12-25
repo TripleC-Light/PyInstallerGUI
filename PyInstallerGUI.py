@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 from tornado.escape import json_decode
+import webbrowser
 import os
 import subprocess
 from tkinter import *
@@ -46,7 +47,7 @@ class GetPathHandler(tornado.web.RequestHandler):
             iconName = file_path[0].split('/')
             iconName = iconName[len(iconName)-1]
             print(iconName)
-            im.save('./static/tmp/' + iconName)
+            im.save('./static/tmpForPyInstaller/' + iconName)
 
         tk.destroy()
         print(file_path)
@@ -68,15 +69,14 @@ class SubmitHandler(tornado.web.RequestHandler):
         dataPathList = jsonData['dataPathList']
         folderPathList = jsonData['folderPathList']
         iconPath = jsonData['iconPath']
-        print('iconPath:', iconPath)
 
         scriptsPath = sys.executable
         pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
         CMD_List.append(pyinstallerPath)
-        print(pyinstallerPath)
+        print('Pyinstaller >> ', pyinstallerPath)
 
         CMD_List.append(mainPath)
-        print(mainPath)
+        print('mainPath >> ', mainPath)
 
         if folderName == '':
             folderName = 'PyInstaller'
@@ -125,6 +125,16 @@ class SubmitHandler(tornado.web.RequestHandler):
             distPath = distPath.replace('/', '\\')
             subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+        tmpPath = sys.path[0]
+        tmpPath = tmpPath.replace(r'\\', '\\')
+        tmpPath = tmpPath + '\\static\\tmpForPyInstaller\\*.*'
+        print('tmpPath >> ', tmpPath)
+        p = subprocess.Popen(['del', '/Q', tmpPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _stdoutput, _erroutput = p.communicate()
+        _stdoutput = _stdoutput.decode("Big5")
+        _erroutput = _erroutput.decode("Big5")
+        print('_stdoutput: ', _stdoutput)
+        print('_erroutput: ', _erroutput)
 
 if __name__ == "__main__":
     try:
@@ -141,7 +151,8 @@ if __name__ == "__main__":
         )
         webApp.listen(8888)
         url = 'http://localhost:8888'
-        # webbrowser.open(url=url, new=0)
+        webbrowser.open(url=url, new=0)
+
         print('Server open in: ' + url)
         tornado.ioloop.IOLoop.instance().start()
 

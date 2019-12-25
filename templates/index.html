@@ -112,7 +112,7 @@
 			idClass = id.split('_')[0];
 			console.log('idClass: ' + idClass);
 			clrBtn(id);
-			if( idClass=='iMainPath' || idClass=='iIcon' ){
+			if( idClass=='iMainPath'){
 				if( action=='add' || action=='edit' ){
 		        	newBtn(id, 'del');
 		        	newBtn(id, 'edit');
@@ -148,6 +148,16 @@
         		console.log(pathList);
         		savePathList(idClass, pathList);
 			}
+
+			else if( idClass=='iIcon' ){
+				if( action=='add' || action=='edit' ){
+		        	newBtn(id, 'del');
+		        	newBtn(id, 'edit');
+		        	iconPath = document.getElementById(id+'_path').value;
+				}else if( action=='del' ){
+					newBtn(id, 'add');
+				}
+			}
 		}
 
 		function editPath(id, action){
@@ -164,7 +174,7 @@
 							iconName = iconName.split('/');
 							iconName = iconName[iconName.length-1];
 							console.log(iconName);
-							document.getElementById('iIconPic').src = '/static/tmp/' + iconName;
+							document.getElementById('iIconPic').src = '/static/tmpForPyInstaller/' + iconName;
 						}
 						btnProcess(id, action);
 			        }
