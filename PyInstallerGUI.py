@@ -70,8 +70,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         folderPathList = jsonData['folderPathList']
         iconPath = jsonData['iconPath']
 
-        scriptsPath = sys.executable
-        pyinstallerPath = scriptsPath.replace('python.exe', 'scripts\\pyinstaller')
+        pyinstallerPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\pyinstaller'
         CMD_List.append(pyinstallerPath)
         print('Pyinstaller >> ', pyinstallerPath)
 
@@ -100,7 +99,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         CMD_List.append('--specpath=' + specPath)
 
         if fileName != '':
-            CMD_List.append('-n ' + fileName)
+            CMD_List.append('--name=' + fileName)
 
         if iconPath != '':
             iconPath = iconPath.replace('/', '\\')
@@ -125,9 +124,7 @@ class SubmitHandler(tornado.web.RequestHandler):
             distPath = distPath.replace('/', '\\')
             subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        tmpPath = sys.path[0]
-        tmpPath = tmpPath.replace(r'\\', '\\')
-        tmpPath = tmpPath + '\\static\\tmpForPyInstaller\\*.*'
+        tmpPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\tmpForPyInstaller\\*.*'
         print('tmpPath >> ', tmpPath)
         p = subprocess.Popen(['del', '/Q', tmpPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _stdoutput, _erroutput = p.communicate()
@@ -151,8 +148,8 @@ if __name__ == "__main__":
         )
         webApp.listen(8888)
         url = 'http://localhost:8888'
-        webbrowser.open(url=url, new=0)
-
+        # webbrowser.open(url=url, new=0)
+        # print(os.path.split(os.path.realpath(__file__))[0])
         print('Server open in: ' + url)
         tornado.ioloop.IOLoop.instance().start()
 
