@@ -8,10 +8,8 @@
 		@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 
 		.cBody{
-		    /*font-family: 'Noto Sans TC', sans-serif;*/
-		    /*background: #EEE;*/
-		    /*border: 1px solid #000;*/
-		    background: linear-gradient(#000, #AAA);
+			font-family: 'Noto Sans TC', sans-serif;
+			background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 		}
 		.cBorder{
 			border: 0px solid #00F;
@@ -88,6 +86,52 @@
 			vertical-align: middle;
 			width: 200px;
 		}
+
+.box3{
+    margin: 20px auto;
+    width: 300px;
+    min-height: 310px;
+    padding: 10px;
+    position:relative;
+    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+    border: 1px solid #ccc;
+    -webkit-border-radius: 60px 5px;
+    -webkit-box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.1) inset;
+}
+
+.box3:before{
+    content: '';
+    width: 50px;
+    height: 50px;
+    top:0; right:0;
+    position:absolute;
+    display: inline-block;
+    z-index:-1;
+    -webkit-box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
+    -webkit-transform: rotate(2deg)
+                        translate(-14px,20px)
+                           skew(-20deg);
+}
+
+.box3:after{
+    content: '';
+    width: 100px;
+    height: 100px;
+    top:0; left:0;
+    position:absolute;
+    z-index:-1;
+    display: inline-block;
+    -webkit-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.2);
+    -webkit-transform: rotate(2deg)
+                        translate(20px,25px)
+                           skew(20deg);
+}
+
+.box3 img {
+    width: 100%;
+    margin-top: 15px;
+}
+
 	</style>
 
 	<script language=javascript>
@@ -347,7 +391,7 @@
 
 <body class="cBody">
 <center>
-	<div class="cBorder" style="width:650px; background-color:#FFF">
+	<div class="box3" style="width:650px;">
 		<div id='mainDiv' class="cBorder">
 			<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
 			<hr style="size:5px;width:95%;border-color:#000">
@@ -398,7 +442,8 @@
 
 		<div class="cBorder" style="width:95%;margin:15px 0px;">
 			<div class="cOK" onclick="submit()">執　行</div>
-		</div> 
+		</div>
+		<br>
 	</div>
 </center>
 </body>
