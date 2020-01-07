@@ -105,8 +105,6 @@
 
 
 .cOK{
-/*	border: 2px solid rgb(33, 215, 137);
-	border-radius: 25px;*/
 	border: 1px solid rgb(49, 51, 53);
 	color: rgb(33, 215, 137);
 	font-size: 40px;
@@ -131,10 +129,20 @@
 }
 
 .cAdvanced{
+	color: rgb(248, 198, 57);
+	font-size: 18px;
+	font-weight: lighter;
 	display: inline-block;
-	margin: 5px 0px;
+	margin: 5px 5px;
 	vertical-align: middle;
-	width: 200px;
+	text-align: right;
+	width: 160px;
+	border-right: 2px solid rgb(248, 198, 57);
+	padding-right: 10px;
+}
+.cAdvancedAlignLeft{
+	text-align: left;
+	border-right: 0px solid rgb(248, 198, 57);
 }
 .cAdvancedInput{
 	border: 1px solid #000;
