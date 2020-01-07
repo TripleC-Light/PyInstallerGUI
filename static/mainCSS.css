@@ -2,25 +2,55 @@
 
 .cBody{
 	font-family: 'Noto Sans TC', sans-serif;
-	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+	/*background-image: linear-gradient(to top, #09203f 0%, #537895 100%);*/
+	background-image: linear-gradient(#FFF 0%, #CCC 50%);
 }
 
 .cMain{
-	border: 2px solid #FFF;
-	/*border-radius: 0px 10px 10px 0px;*/
+	/*border: 2px solid #FFF;*/
+	/*border: 5px solid rgb(248, 198, 57);*/
+	/*border: 5px solid rgb(54, 116, 168);*/
+	border: 5px solid rgb(33, 215, 137);
+	border-radius: 0px 30px 0px 30px;
+	/*background-image: linear-gradient(to top, #AAA 100%, #EEE 0%);*/
+	background-color: rgb(49, 51, 53);
+	box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.6);
+	margin: 25px;
+}
+
+.cTitle{
+	color: rgb(209, 223, 225);
+	font-size: 50px;
+	font-weight: bolder;
+	margin: 25px 0px 0px 0px;
+	text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.8),
+	             0px 8px 13px rgba(0, 0, 0, 0.4),
+	             0px 18px 23px rgba(0, 0, 0, 0.4);
 }
 
 .cBorder{
 	border: 0px solid #000;
 }
+
 .cPathBlock{
+	border-left: 5px solid rgb(49, 51, 53);
 	margin: 15px 0px;
 	width: 95%;
 }
+.cPathBlock:hover{
+	border-left: 5px solid rgb(209, 223, 225);
+	background-color: rgb(54, 56, 58);
+	margin: 15px 0px;
+	width: 95%;
+}
+
+
 .cItem{
+	color: rgb(209, 223, 225);
 	display: inline-block;
 	font-size: 20px;
 	text-align: right;
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
 	margin-top: 9px;
 	vertical-align: top;
 	width: 15%;
@@ -31,7 +61,10 @@
 	width: 80%;
 }
 .cInfoInput{
-	border: 2px solid #F00;
+	border: 1px solid rgb(205, 205, 205);
+	background-color: rgb(102, 106, 111);
+	border-radius: 5px;
+	box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
 	display: inline-block;
 	font-size: 20px;
 	height: 35px;
@@ -47,28 +80,56 @@
 	width: 20%;
 }
 .cBtn{
-	border: 1px solid #F00;
-	border-radius: 15px;
-	color: #F00;
+	font-size: 30px;
+	font-weight: bolder;
+	color: rgb(33, 215, 137);
+	text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+	line-height: 30px;
+
 	display: inline-block;
-	font-size: 20px;
-	height: 30px;
+	height: 35px;
 	margin: 0px 2px;
 	text-align: center;
 	user-select: none;
-	width: 30px;
+	width: 35px;
+	transition: all 0.2s ease-out 0.1s;
 }
+.cBtn:hover{
+	border-radius: 5px;
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
+	background-color: rgb(79, 81, 83);
+}
+.cBtn:active{
+	background-color: rgb(99, 101, 103);
+}
+
+
 .cOK{
-	border: 2px solid #F00;
-	border-radius: 20px;
-	color: #F00;
-	font-size: 30px;
-	height: 40px;
+/*	border: 2px solid rgb(33, 215, 137);
+	border-radius: 25px;*/
+	border: 1px solid rgb(49, 51, 53);
+	color: rgb(33, 215, 137);
+	font-size: 40px;
+	line-height: 40px;
+	border-radius: 10px;
+	height: 50px;
+	width: 50px;
 	margin: 15px 0px;
 	text-align: center;
+	text-shadow: 3px 3px 1px rgba(0, 0, 0, 0.4);
 	user-select: none;
-	width: 50%;
+	transition: all 0.2s ease-out 0.1s;
 }
+.cOK:hover{
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
+	box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
+	border: 1px solid rgb(33, 215, 137);
+	background-color: rgb(69, 71, 73);
+}
+.cOK:active{
+	background-color: rgb(89, 91, 93);
+}
+
 .cAdvanced{
 	display: inline-block;
 	margin: 5px 0px;

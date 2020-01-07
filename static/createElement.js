@@ -57,6 +57,7 @@ function createPath(parent, id){
 	block.setAttribute('type', 'text');
 	block.setAttribute('dir', 'rtl');
 	block.setAttribute('value', '');
+	block.setAttribute('autocomplete', 'off');
 	parent.appendChild(block);
 }
 

@@ -124,14 +124,17 @@
 			switch(action){
 				case 'add':
 					btn.innerHTML = '+';
+					btn.style.color = 'rgb(33, 215, 137)';
 					btn.onclick= function(){ editPath(id, action) };
 					break;
 				case 'del':
-					btn.innerHTML = '-';
+					btn.innerHTML = '&#x2013';
+					btn.style.color = 'rgb(255, 0, 0)';
 					btn.onclick= function(){ delPath(id) };
 					break;
 				case 'edit':
-					btn.innerHTML = 'E';
+					btn.innerHTML = '&#9998';
+					btn.style.color = 'rgb(248, 198, 57)';
 					btn.onclick= function(){ editPath(id, action) };
 					break;
 			}
@@ -197,10 +200,10 @@
 
 <body class="cBody">
 <center>
-	<div class="cMain cBorder" style="width:650px;">
+	<div class="cMain" style="width:650px;">
 		<div id='mainDiv' class="cBorder">
-			<div style='font-size:40px;font-weight:bolder;color:#F00'>PyInstaller GUI</div>
-			<hr style="size:5px;width:95%;border-color:#000">
+			<div class='cTitle'>PyInstaller GUI</div>
+			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);">
 		</div>
 
 		<div class='cPathBlock cBorder'>
@@ -246,10 +249,9 @@
 			</div>
 		</div>
 
-		<div class="cBorder" style="width:95%;margin:15px 0px;">
-			<div class="cOK" onclick="submit()">執　行</div>
+		<div class="cBorder" style="width:95%;margin:25px 0px;">
+			<div class="cOK" onclick="submit()">&#9658</div>
 		</div>
-		<br>
 	</div>
 </center>
 </body>
