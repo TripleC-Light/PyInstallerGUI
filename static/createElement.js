@@ -25,6 +25,8 @@ function createFrame(parent, id){
 	var block = document.createElement('div');
 	block.setAttribute("id", blockId);
 	block.setAttribute('class', 'cPathBlock cBorder');
+	block.onmouseover = function(){ showTips(id) };
+	block.onmouseleave = function(){ hideTips() };
 	parent.appendChild(block);
 }
 

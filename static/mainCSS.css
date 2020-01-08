@@ -92,7 +92,7 @@
 	text-align: center;
 	user-select: none;
 	width: 35px;
-	transition: all 0.2s ease-out 0.1s;
+/*	transition: all 0.2s ease-out 0.1s;*/
 }
 .cBtn:hover{
 	border-radius: 5px;
@@ -153,4 +153,54 @@
 	padding: 0px 5px;
 	vertical-align: middle;
 	width: 200px;
+}
+
+.cAbout{
+	height: 20px;
+	border: 0px solid #F00;
+	display: inline-block;
+	margin: 0px 5px;
+	vertical-align: middle;
+}
+
+.cTipsFrame{
+	text-align: left;
+	left: 30px;
+	position: absolute;
+    border: 1px solid #00F;
+    display: none;
+}
+
+.cTipsTitle{
+	position: relative;
+	text-align: center;
+	left: 0px;
+	font-size: 22px;
+	font-weight: bolder;
+	/*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);*/
+	color: rgb(248, 198, 57);
+	/*color: rgb(0, 0, 0);*/
+	background-color: #FFF;
+    border: 5px solid rgb(248, 198, 57);
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    width: 80px;
+    z-index: 999;
+}
+
+.cTips{
+	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+	/*font-weight: lighter;*/
+	font-size: 20px;
+	/*color: rgb(248, 198, 57);*/
+	color: rgb(248, 198, 57);
+	padding: 15px;
+	position: relative;
+	top: -5px;
+	background-color: #FFF;
+    border: 5px solid rgb(248, 198, 57);
+	width: 400px;
+    z-index: -1;
+    line-height: 35px;
+    letter-spacing: 3px;
 }

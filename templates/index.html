@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="/static/createElement.js"></script>
 	<title>PyInstaller GUI</title>
 	<script language=javascript>
+		var stateApp = new Boolean(false);
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
@@ -25,6 +26,8 @@
         	listItem.forEach(function(item) {
 				createPathBlock('mainDiv', item);
         	})
+        	stateApp = false;
+        	document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
         }
 
 		function btnProcess(id, action){
@@ -38,6 +41,8 @@
 		        	mainPath = document.getElementById(id+'_path').value;
 				}else if( action=='del' ){
 					newBtn(id, 'add');
+					mainPath = '';
+					document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
 				}
 			}
 
@@ -79,6 +84,48 @@
 			}
 		}
 
+		function checkPath(id, path){
+			var result = new Boolean(true);
+			if( path == mainPath ){
+				console.log('overlapping');
+				result = false;
+			}
+
+			importPathList.forEach(function(importPath) {
+				if( path == importPath ){
+					console.log('overlapping');
+					result = false;
+				}
+			})
+
+			dataPathList.forEach(function(importPath) {
+				if( path == importPath ){
+					console.log('overlapping');
+					result = false;
+				}
+			})
+
+			folderPathList.forEach(function(importPath) {
+				if( path == importPath ){
+					console.log('overlapping');
+					result = false;
+				}
+			})
+
+			return result;
+		}
+
+		function startAPP(state){
+			stateApp = state;
+			if( state ){
+				document.getElementById('iOK').style.color = 'rgb(33, 215, 137)';
+			}
+		}
+
+		function showError(msg){
+			console.log(msg);
+		}
+
 		function editPath(id, action){
 		    var xmlhttp;
 		    xmlhttp=new XMLHttpRequest();
@@ -87,15 +134,25 @@
 					var result = JSON.parse(xmlhttp.responseText);
 					if( result.path!='' ){
 						console.log(id + "= " + result.path);
-						document.getElementById(id+'_path').value = result.path;
+						if( checkPath(id, result.path) ){
+							document.getElementById(id+'_path').value = result.path;
+							if( id=='iMainPath' ){
+								startAPP(true);
+							}
+							btnProcess(id, action);
+						}else{
+							showError('overLapping');
+						}
+						
 						if( id=='iIcon' ){
 							var iconName = document.getElementById(id+'_path').value;
 							iconName = iconName.split('/');
 							iconName = iconName[iconName.length-1];
 							console.log(iconName);
 							document.getElementById('iIconPic').src = '/static/tmpForPyInstaller/' + iconName;
+							btnProcess(id, action);
 						}
-						btnProcess(id, action);
+						
 			        }
 		        }
 		    }
@@ -167,46 +224,84 @@
 					return;
 			}
 		}
-		function submit(){
-			var allData = {
-				fileName: '',
-				folderName: '',
-				optionList: [],
-				mainPath: mainPath,
-				importPathList: importPathList,
-				dataPathList: dataPathList,
-				folderPathList: folderPathList,
-				iconPath: iconPath
+
+		function showTips(id){
+			idClass = id.split('_')[0];
+			console.log('idClass from Tips: ' + idClass);
+			var tips = '';
+			switch(idClass){
+				case 'iMainPath':
+					tips = '請選擇主要的程式進行轉換';
+					break;
+				case 'iImportPath':
+					tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
+					break;
+				case 'iDataPath':
+					tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
+					break;
+				case 'iFolderPath':
+					tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
+					break;
+				case 'iAdvanced':
+					tips = '進階設定';
+					break;
 			}
+			document.getElementById('iTipsFrame').style.display = 'inline-block';
+			document.getElementById('iTips').innerHTML = tips;
+		}
 
-			allData.fileName = document.getElementById('iFileName').value;
-			allData.folderName = document.getElementById('iFolderName').value;
-			allData.optionList.push($("[name='oneFile']:checked").val());
-			allData.optionList.push($("[name='clean']:checked").val());
-			allData.optionList.push($("[name='command']:checked").val());
-			var jsonToPC = JSON.stringify(allData);
-			console.log(jsonToPC);
+		function hideTips(){
+			document.getElementById('iTipsFrame').style.display = 'none';
+		}
 
-		    var xmlhttp;
-		    xmlhttp=new XMLHttpRequest();
-		    xmlhttp.onreadystatechange=function(){
-		        if (xmlhttp.readyState==4 && xmlhttp.status==200){}
-		    }
-		    xmlhttp.open("GET","/submit?data="+jsonToPC,true);
-		    xmlhttp.send();
+		function submit(){
+			if( stateApp ){
+				var allData = {
+					fileName: '',
+					folderName: '',
+					optionList: [],
+					mainPath: mainPath,
+					importPathList: importPathList,
+					dataPathList: dataPathList,
+					folderPathList: folderPathList,
+					iconPath: iconPath
+				}
+				allData.fileName = document.getElementById('iFileName').value;
+				allData.folderName = document.getElementById('iFolderName').value;
+				allData.optionList.push($("[name='oneFile']:checked").val());
+				allData.optionList.push($("[name='clean']:checked").val());
+				allData.optionList.push($("[name='command']:checked").val());
+				var jsonToPC = JSON.stringify(allData);
+				console.log(jsonToPC);
+
+			    var xmlhttp;
+			    xmlhttp=new XMLHttpRequest();
+			    xmlhttp.onreadystatechange=function(){
+			        if (xmlhttp.readyState==4 && xmlhttp.status==200){}
+			    }
+			    xmlhttp.open("GET","/submit?data="+jsonToPC,true);
+			    xmlhttp.send();
+			}else{
+				showError('noMainPath');
+			}
 		}
 	</script>
 </head>
 
 <body class="cBody">
 <center>
+	<div id='iTipsFrame' class='cTipsFrame'>
+		<div id='iTipsTitle' class='cTipsTitle'>Tips</div>
+		<div id='iTips' class='cTips'>Tips</div>
+	</div>
+
 	<div class="cMain" style="width:650px;">
 		<div id='mainDiv' class="cBorder">
 			<div class='cTitle'>PyInstaller GUI</div>
-			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);">
+			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);" >
 		</div>
 
-		<div class='cPathBlock cBorder'>
+		<div class='cPathBlock cBorder' onmouseover="showTips('iAdvanced')" onmouseleave="hideTips()">
 			<div class="cItem cBorder">進階設定</div>
 			<div id='iAdvanced_list' class='cListBlock cBorder'>
 				<div class="cInfoInput cBorder" style='height:270px;width:95%;text-align:left;padding-top:15px' id="iAdvanced_path">
@@ -250,8 +345,27 @@
 		</div>
 
 		<div class="cBorder" style="width:95%;margin:25px 0px;">
-			<div class="cOK" onclick="submit()">&#9658</div>
+			<div id='iOK' class="cOK" onclick="submit()">&#9658</div>
 		</div>
+	</div>
+
+	<hr style="size:5px;width:80%;border-color:rgb(49, 51, 53);">
+	<div class="cAbout" style="width:1500px;vertical-align:middle">
+		<img src="/static/flag.png" style="width:20px;height:15px">
+		<div class="cAbout">Author: Edward Chou</div>
+		<div class="cAbout">
+			<a href="mailto:TripleC.Light@gmail.com" style="text-decoration:none;"><img src="/static/Gmail.png" style="width:20px;height:15px"></a>
+		</div>
+		<div class="cAbout">
+			<a href="https://triplec-light.000webhostapp.com" style="text-decoration:none;"><img src="/static/Web.png" style="width:20px;height:20px"></a>
+		</div>
+		<div class="cAbout">
+			<a href="https://www.linkedin.com/in/edward-chou-42058912a" style="text-decoration:none;"><img src="/static/LinkedIn.png" style="width:20px;height:20px"></a>
+		</div>
+		<div class="cAbout">
+			<a href="https://github.com/TripleC-Light" style="text-decoration:none;"><img src="/static/GitHub.png" style="width:20px;height:20px"></a>
+		</div>
+		
 	</div>
 </center>
 </body>
