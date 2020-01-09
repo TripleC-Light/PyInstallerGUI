@@ -166,9 +166,14 @@
 .cTipsFrame{
 	text-align: left;
 	left: 30px;
-	position: absolute;
+	position: fixed;
     border: 1px solid #00F;
     display: none;
+    opacity: 1;
+}
+.cTipsFrame.hideTranslate{
+    transition: 1s;
+    opacity: 0 !important;
 }
 
 .cTipsTitle{
