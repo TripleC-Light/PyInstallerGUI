@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <html lang="zh-Hant">
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,6 +141,7 @@
 					document.getElementById('iTips').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
 					break;
 			}
+			$('#iTipsFrame').effect('shake', { times:3, distance:5 }, 50);
 		}
 
 		function editPath(id, action){
@@ -377,7 +379,7 @@
 	</div>
 
 	<hr style="size:5px;width:80%;border-color:rgb(49, 51, 53);">
-	<div class="cAbout" style="width:1500px;vertical-align:middle">
+	<div class="cAbout" style="width:90%;vertical-align:middle">
 		<img src="/static/flag.png" style="width:20px;height:15px">
 		<div class="cAbout">Author: Edward Chou</div>
 		<div class="cAbout">
