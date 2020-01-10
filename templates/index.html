@@ -144,6 +144,33 @@
 			$('#iTipsFrame').effect('shake', { times:3, distance:5 }, 50);
 		}
 
+		function showAbout(item){
+			showTips('');
+			document.getElementById('iTips').style.color = 'rgb(33, 215, 137)';
+			document.getElementById('iTips').style.border = '5px solid rgb(33, 215, 137)';
+			document.getElementById('iTipsTitle').style.color = 'rgb(33, 215, 137)';
+			document.getElementById('iTipsTitle').style.border = '5px solid rgb(33, 215, 137)';
+			document.getElementById('iTipsTitle').style.borderBottom = 'none';
+
+			switch(item){
+				case 'aboutMe':
+					document.getElementById('iTipsTitle').innerHTML = '關於我';
+					break;
+				case 'Gmail':
+					document.getElementById('iTipsTitle').innerHTML = 'G-Mail';
+					break;
+				case 'Blog':
+					document.getElementById('iTipsTitle').innerHTML = '網誌';
+					break;
+				case 'LinkedIn':
+					document.getElementById('iTipsTitle').innerHTML = 'LinkedIn';
+					break;
+				case 'GitHub':
+					document.getElementById('iTipsTitle').innerHTML = 'GitHub';
+					break;
+			}
+		}
+
 		function editPath(id, action){
 		    var xmlhttp;
 		    xmlhttp=new XMLHttpRequest();
@@ -379,22 +406,19 @@
 	</div>
 
 	<hr style="size:5px;width:80%;border-color:rgb(49, 51, 53);">
-	<div class="cAbout" style="width:90%;vertical-align:middle;">
-		<div class="cAbout">
-			Author: Edward Chou
-			<img src="/static/flag.png" style="width:25px;height:20px;margin-top:2px">
+	<div style="width:90%;height:35px;vertical-align:middle;">
+		<div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="showAbout('aboutMe')" onmouseleave="hideTips()"></div>
+		<div class="cAbout" style="background-image:url('./static/Gmail.png')" onclick="javascript:window.open('mailto:TripleC.Light@gmail.com');" onmouseover="showAbout('Gmail')" onmouseleave="hideTips()">
+			<!-- <a href="mailto:TripleC.Light@gmail.com" style="text-decoration:none;"><img src="/static/Gmail.png" style="margin-top:3px"></a> -->
 		</div>
-		<div class="cAbout">
-			<a href="mailto:TripleC.Light@gmail.com" style="text-decoration:none;"><img src="/static/Gmail.png" style="width:25px;height:18px;margin-top:3px"></a>
+		<div class="cAbout" style="background-image:url('./static/Blog.png');" onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" onmouseover="showAbout('Blog')" onmouseleave="hideTips()">
+<!-- 			<a href="https://triplec-light.000webhostapp.com" style="text-decoration:none;"><img src="/static/Blog.png" style="width:25px;height:25px"></a> -->
 		</div>
-		<div class="cAbout">
-			<a href="https://triplec-light.000webhostapp.com" style="text-decoration:none;"><img src="/static/Blog.png" style="width:25px;height:25px"></a>
+		<div class="cAbout" style="background-image:url('./static/LinkedIn.png');" onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" onmouseover="showAbout('LinkedIn')" onmouseleave="hideTips()">
+<!-- 			<a href="https://www.linkedin.com/in/edward-chou-42058912a" style="text-decoration:none;"><img src="/static/LinkedIn.png" style="width:25px;height:25px"></a> -->
 		</div>
-		<div class="cAbout">
-			<a href="https://www.linkedin.com/in/edward-chou-42058912a" style="text-decoration:none;"><img src="/static/LinkedIn.png" style="width:25px;height:25px"></a>
-		</div>
-		<div class="cAbout">
-			<a href="https://github.com/TripleC-Light" style="text-decoration:none;"><img src="/static/GitHub.png" style="width:25px;height:25px"></a>
+		<div class="cAbout" style="background-image:url('./static/GitHub.png');" onclick="javascript:window.open('https://github.com/TripleC-Light');" onmouseover="showAbout('GitHub')" onmouseleave="hideTips()">
+<!-- 			<a href="https://github.com/TripleC-Light" style="text-decoration:none;"><img src="/static/GitHub.png" style="width:25px;height:25px"></a> -->
 		</div>
 		
 	</div>
