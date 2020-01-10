@@ -156,11 +156,13 @@
 }
 
 .cAbout{
-	height: 20px;
+	height: 25px;
 	border: 0px solid #F00;
 	display: inline-block;
 	margin: 0px 5px;
 	vertical-align: middle;
+	font-size: 20px;
+	line-height:20px;
 }
 
 .cTipsFrame{
