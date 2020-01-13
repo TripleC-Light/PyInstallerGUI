@@ -155,18 +155,23 @@
 			switch(item){
 				case 'aboutMe':
 					document.getElementById('iTipsTitle').innerHTML = '關於我';
+					document.getElementById('iTips').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
 					break;
 				case 'Gmail':
 					document.getElementById('iTipsTitle').innerHTML = 'G-Mail';
+					document.getElementById('iTips').innerHTML = 'TripleC.Light@gmail.com';
 					break;
 				case 'Blog':
 					document.getElementById('iTipsTitle').innerHTML = '網誌';
+					document.getElementById('iTips').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
 					break;
 				case 'LinkedIn':
 					document.getElementById('iTipsTitle').innerHTML = 'LinkedIn';
+					document.getElementById('iTips').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
 					break;
 				case 'GitHub':
 					document.getElementById('iTipsTitle').innerHTML = 'GitHub';
+					document.getElementById('iTips').innerHTML = 'https://github.com/TripleC-Light';
 					break;
 			}
 		}
@@ -409,16 +414,12 @@
 	<div style="width:90%;height:35px;vertical-align:middle;">
 		<div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="showAbout('aboutMe')" onmouseleave="hideTips()"></div>
 		<div class="cAbout" style="background-image:url('./static/Gmail.png')" onclick="javascript:window.open('mailto:TripleC.Light@gmail.com');" onmouseover="showAbout('Gmail')" onmouseleave="hideTips()">
-			<!-- <a href="mailto:TripleC.Light@gmail.com" style="text-decoration:none;"><img src="/static/Gmail.png" style="margin-top:3px"></a> -->
 		</div>
 		<div class="cAbout" style="background-image:url('./static/Blog.png');" onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" onmouseover="showAbout('Blog')" onmouseleave="hideTips()">
-<!-- 			<a href="https://triplec-light.000webhostapp.com" style="text-decoration:none;"><img src="/static/Blog.png" style="width:25px;height:25px"></a> -->
 		</div>
 		<div class="cAbout" style="background-image:url('./static/LinkedIn.png');" onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" onmouseover="showAbout('LinkedIn')" onmouseleave="hideTips()">
-<!-- 			<a href="https://www.linkedin.com/in/edward-chou-42058912a" style="text-decoration:none;"><img src="/static/LinkedIn.png" style="width:25px;height:25px"></a> -->
 		</div>
 		<div class="cAbout" style="background-image:url('./static/GitHub.png');" onclick="javascript:window.open('https://github.com/TripleC-Light');" onmouseover="showAbout('GitHub')" onmouseleave="hideTips()">
-<!-- 			<a href="https://github.com/TripleC-Light" style="text-decoration:none;"><img src="/static/GitHub.png" style="width:25px;height:25px"></a> -->
 		</div>
 		
 	</div>

@@ -168,13 +168,14 @@
 	cursor: pointer; 
 }
 .cAbout:hover{
-	height: 30px;
-	width: 30px;
+	height: 35px;
+	width: 35px;
 }
 
 .cTipsFrame{
 	text-align: left;
 	left: 30px;
+	bottom: 60px;
 	position: fixed;
     border: 0px solid #00F;
     display: none;
@@ -191,22 +192,19 @@
 	left: 0px;
 	font-size: 22px;
 	font-weight: bolder;
-	/*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);*/
 	color: rgb(248, 198, 57);
-	/*color: rgb(0, 0, 0);*/
 	background-color: #FFF;
     border: 5px solid rgb(248, 198, 57);
     border-bottom: none;
     border-radius: 10px 10px 0px 0px;
-    width: 80px;
+    width: 120px;
     z-index: 999;
 }
 
 .cTips{
 	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
-	/*font-weight: lighter;*/
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 	font-size: 20px;
-	/*color: rgb(248, 198, 57);*/
 	color: rgb(248, 198, 57);
 	padding: 15px;
 	position: relative;
@@ -217,4 +215,5 @@
     z-index: -1;
     line-height: 35px;
     letter-spacing: 3px;
+    word-break: break-all;
 }
