@@ -203,7 +203,7 @@
 
 .cTips{
 	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);*/
 	font-size: 20px;
 	color: rgb(248, 198, 57);
 	padding: 15px;
