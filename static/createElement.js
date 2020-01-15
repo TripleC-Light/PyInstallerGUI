@@ -16,7 +16,7 @@ function createPathBlock(parent, item){
 
 	createPath(id+'_list', id);
 	createOption(id+'_list', id);
-	btn.new(id, 'add');
+	gui.newBtn(id, 'add');
 }
 
 function createFrame(parent, id){

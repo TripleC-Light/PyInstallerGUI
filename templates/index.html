@@ -5,23 +5,18 @@
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="./static/mainCSS.css">
-	<script type="text/javascript" src="/static/BtnCtrl.js"></script>
+	<script type="text/javascript" src="/static/GUICtrl.js"></script>
 	<script type="text/javascript" src="/static/PathCtrl.js"></script>
 	<script type="text/javascript" src="/static/createElement.js"></script>
 	<title>PyInstaller GUI</title>
 	<script language=javascript>
 		var stateApp = new Boolean(false);
-		var btn = new BtnCtrl();
+		var gui = new GUICtrl();
 		var path = new PathCtrl();
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
 						['資料夾', 'iFolderPath_0']];
-		var mainPath = '';
-		var importPathList = [];
-		var dataPathList = [];
-		var folderPathList = [];
-		var iconPath = '';
 
 		$(document).ready(function (){
 			init();
@@ -39,6 +34,33 @@
 			stateApp = state;
 			if( state ){
 				document.getElementById('iOK').style.color = 'rgb(33, 215, 137)';
+			}
+		}
+
+		function getPath(id, action){
+		    var xmlhttp;
+		    xmlhttp=new XMLHttpRequest();
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var pathReturn = JSON.parse(xmlhttp.responseText);
+					if( path.add(id, action, String(pathReturn.path)) ){
+						if( id == 'iMainPath' ){
+							startAPP(true);
+						}
+						gui.reLayout(id, action);
+					}
+		        }
+		    }
+		    xmlhttp.open("GET","/getPath?cmd="+id,true);
+		    xmlhttp.send();
+		}
+
+		function delPath(id){
+			path.delete(id);
+			gui.reLayout(id, 'del');
+			if( id == 'iMainPath' ){
+				startAPP(false);
+				document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
 			}
 		}
 
@@ -94,41 +116,6 @@
 			}
 		}
 
-		function editPath(id, action){
-		    var xmlhttp;
-		    xmlhttp=new XMLHttpRequest();
-		    xmlhttp.onreadystatechange=function(){
-		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var pathReturn = JSON.parse(xmlhttp.responseText);
-
-					var pathEditResult = path.edit(id, action, String(pathReturn.path));
-
-					if( pathEditResult ){
-						if( id == 'iMainPath' ){
-							startAPP(true);
-						}
-						btn.ctrl(id, action);
-					}						
-					// 	if( id=='iIcon' ){
-					// 		var iconName = document.getElementById(id+'_path').value;
-					// 		iconName = iconName.split('/');
-					// 		iconName = iconName[iconName.length-1];
-					// 		console.log(iconName);
-					// 		document.getElementById('iIconPic').src = '/static/tmpForPyInstaller/' + iconName;
-					// 		btn.ctrl(id, action);
-					// 	}
-						
-			  //       }
-		        }
-		    }
-		    xmlhttp.open("GET","/getPath?cmd="+id,true);
-		    xmlhttp.send();
-		}
-
-		function delPath(id){
-			path.delete(id);
-			btn.ctrl(id, 'del');
-		}
 
 		function showTips(id){
 			idClass = id.split('_')[0];
@@ -174,11 +161,11 @@
 					fileName: '',
 					folderName: '',
 					optionList: [],
-					mainPath: mainPath,
-					importPathList: importPathList,
-					dataPathList: dataPathList,
-					folderPathList: folderPathList,
-					iconPath: iconPath
+					mainPath: path.mainPath,
+					importPathList: path.importPathList,
+					dataPathList: path.dataPathList,
+					folderPathList: path.folderPathList,
+					iconPath: path.iconPath
 				}
 				allData.fileName = document.getElementById('iFileName').value;
 				allData.folderName = document.getElementById('iFolderName').value;
@@ -235,7 +222,7 @@
 						<img id='iIconPic' src="/static/pythonIcon.png" border="" style="height:25px;width:25px;vertical-align:middle;" />
 						<input class='cAdvancedInput cBorder' style='width:125px' dir='rtl' type='text' id='iIcon_path'/>
 						<div id='iIcon_option' class='cOptionDiv cBorder' style='width:auto'>
-							<div id='iIcon_addBtn' class="cBtn" style="font-weight:bolder" onclick="editPath('iIcon', 'add')">+</div>
+							<div id='iIcon_addBtn' class="cBtn" style="font-weight:bolder" onclick="getPath('iIcon', 'add')">+</div>
 						</div>
 					</div>
 
