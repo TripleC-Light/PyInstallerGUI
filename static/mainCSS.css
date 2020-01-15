@@ -175,7 +175,7 @@
 .cTipsFrame{
 	text-align: left;
 	left: 30px;
-	bottom: 60px;
+	bottom: 70px;
 	position: fixed;
     border: 0px solid #00F;
     display: none;
@@ -205,7 +205,9 @@
 	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
 	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);*/
 	font-size: 20px;
-	color: rgb(248, 198, 57);
+	/*color: rgb(248, 198, 57);*/
+	/*color: rgb(237, 177, 9);*/
+	color: rgb(0, 0, 0);
 	padding: 15px;
 	position: relative;
 	top: -5px;

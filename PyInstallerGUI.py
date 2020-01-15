@@ -12,6 +12,10 @@ class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
 
+class AboutHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('about.html')
+
 class GetPathHandler(tornado.web.RequestHandler):
     def get(self):
         CMD = self.get_argument('cmd')
@@ -136,6 +140,7 @@ class SubmitHandler(tornado.web.RequestHandler):
 if __name__ == "__main__":
     try:
         handlers = [[r'/', IndexHandler],
+                    [r'/about', AboutHandler],
                     [r'/getPath', GetPathHandler],
                     [r'/submit', SubmitHandler],
                     [r'/favicon.ico', tornado.web.StaticFileHandler, {'path': './static/favicon.ico'}]]
