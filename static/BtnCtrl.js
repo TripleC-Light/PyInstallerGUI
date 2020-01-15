@@ -36,8 +36,6 @@ class BtnCtrl{
 
 	ctrl(id, action){
 		var idGroup = id.split('_')[0];
-		console.log('idGroup: ' + idGroup);
-
 		this.clear(id);
 		if( action=='add' || action=='edit' ){
         	this.new(id, 'del');
@@ -47,36 +45,26 @@ class BtnCtrl{
 		}
 
 		if( idGroup=='iMainPath'){
-			if( action=='add' || action=='edit' ){
-	        	mainPath = document.getElementById(id+'_path').value;
-			}else if( action=='del' ){
+			if( action=='del' ){
 				startAPP(false);
-				mainPath = '';
 				document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
 			}
 		}
-
 		else if( idGroup=='iImportPath' || idGroup=='iDataPath' || idGroup=='iFolderPath' ){
 			var frameId = id.split('_')[0] + '_' + 0;
-			var ind = id.split('_')[1];
-			var pathList = [];
-			pathList = getPathList(idGroup);
+			console.log('id=' + id);
 			if( action=='add'){
-				pathList[pathList.length] = document.getElementById(id+'_path').value;
-        		var newId = idGroup + '_' + pathList.length;
+    			var timeInMilliseconds = new Date();
+    			var UID = timeInMilliseconds.getTime();
+    			var newId = idGroup + '_' + UID;
         		console.log('newId: ' + newId);
 				createPath(frameId+'_list', newId);
 				createOption(frameId+'_list', newId);
 	        	this.new(newId, 'add');
-			}else if( action=='edit' ){
-				pathList[ind] = document.getElementById(id+'_path').value;
 			}else if( action=='del' ){
-				pathList[ind] = '';
 				document.getElementById(frameId + '_list').removeChild(document.getElementById(id + '_path'));
 				document.getElementById(frameId + '_list').removeChild(document.getElementById(id + '_option'));
 			}
-    		console.log(pathList);
-    		savePathList(idGroup, pathList);
 		}
 
 		else if( idGroup=='iIcon' ){

@@ -6,11 +6,13 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="./static/mainCSS.css">
 	<script type="text/javascript" src="/static/BtnCtrl.js"></script>
+	<script type="text/javascript" src="/static/PathCtrl.js"></script>
 	<script type="text/javascript" src="/static/createElement.js"></script>
 	<title>PyInstaller GUI</title>
 	<script language=javascript>
 		var stateApp = new Boolean(false);
 		var btn = new BtnCtrl();
+		var path = new PathCtrl();
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
@@ -32,37 +34,6 @@
         	stateApp = false;
         	document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
         }
-
-		function checkPath(id, path){
-			var result = new Boolean(true);
-			if( path == mainPath ){
-				console.log('overlapping');
-				result = false;
-			}
-
-			importPathList.forEach(function(importPath) {
-				if( path == importPath ){
-					console.log('overlapping');
-					result = false;
-				}
-			})
-
-			dataPathList.forEach(function(importPath) {
-				if( path == importPath ){
-					console.log('overlapping');
-					result = false;
-				}
-			})
-
-			folderPathList.forEach(function(importPath) {
-				if( path == importPath ){
-					console.log('overlapping');
-					result = false;
-				}
-			})
-
-			return result;
-		}
 
 		function startAPP(state){
 			stateApp = state;
@@ -128,30 +99,26 @@
 		    xmlhttp=new XMLHttpRequest();
 		    xmlhttp.onreadystatechange=function(){
 		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var result = JSON.parse(xmlhttp.responseText);
-					if( result.path!='' ){
-						console.log(id + "= " + result.path);
-						if( checkPath(id, result.path) ){
-							document.getElementById(id+'_path').value = result.path;
-							if( id=='iMainPath' ){
-								startAPP(true);
-							}
-							btn.ctrl(id, action);
-						}else{
-							showTips('');
-							showError('overLapping');
+					var pathReturn = JSON.parse(xmlhttp.responseText);
+
+					var pathEditResult = path.edit(id, action, String(pathReturn.path));
+
+					if( pathEditResult ){
+						if( id == 'iMainPath' ){
+							startAPP(true);
 						}
+						btn.ctrl(id, action);
+					}						
+					// 	if( id=='iIcon' ){
+					// 		var iconName = document.getElementById(id+'_path').value;
+					// 		iconName = iconName.split('/');
+					// 		iconName = iconName[iconName.length-1];
+					// 		console.log(iconName);
+					// 		document.getElementById('iIconPic').src = '/static/tmpForPyInstaller/' + iconName;
+					// 		btn.ctrl(id, action);
+					// 	}
 						
-						if( id=='iIcon' ){
-							var iconName = document.getElementById(id+'_path').value;
-							iconName = iconName.split('/');
-							iconName = iconName[iconName.length-1];
-							console.log(iconName);
-							document.getElementById('iIconPic').src = '/static/tmpForPyInstaller/' + iconName;
-							btn.ctrl(id, action);
-						}
-						
-			        }
+			  //       }
 		        }
 		    }
 		    xmlhttp.open("GET","/getPath?cmd="+id,true);
@@ -159,36 +126,8 @@
 		}
 
 		function delPath(id){
-			document.getElementById(id+'_path').value = '';
-			console.log('delPath');
+			path.delete(id);
 			btn.ctrl(id, 'del');
-		}
-
-		function getPathList(idClass){
-			switch(idClass){
-				case 'iImportPath':
-					return importPathList;
-				case 'iDataPath':
-					return dataPathList;
-				case 'iFolderPath':
-					return folderPathList;
-			}
-		}
-		function savePathList(idClass, pathList){
-			switch(idClass){
-				case 'iMainPath':
-					importPathList = pathList;
-					console.log('importPathList= '+importPathList);
-					return;
-				case 'iDataPath':
-					dataPathList = pathList;
-					console.log('dataPathList= '+dataPathList);
-					return;
-				case 'iFolderPath':
-					folderPathList = pathList;
-					console.log('folderPathList= '+folderPathList);
-					return;
-			}
 		}
 
 		function showTips(id){
