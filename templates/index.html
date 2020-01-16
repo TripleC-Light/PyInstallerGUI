@@ -30,11 +30,14 @@
         	document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
         }
 
-		function startAPP(state){
-			stateApp = state;
-			if( state ){
-				document.getElementById('iOK').style.color = 'rgb(33, 215, 137)';
-			}
+		function startAPP(){
+			stateApp = true;
+			document.getElementById('iOK').style.color = 'rgb(33, 215, 137)';
+		}
+
+		function stopAPP(){
+			stateApp = false;
+			document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
 		}
 
 		function getPath(id, action){
@@ -45,7 +48,7 @@
 					var pathReturn = JSON.parse(xmlhttp.responseText);
 					if( path.add(id, action, String(pathReturn.path)) ){
 						if( id == 'iMainPath' ){
-							startAPP(true);
+							startAPP();
 						}
 						gui.reLayout(id, action);
 					}
@@ -59,8 +62,7 @@
 			path.delete(id);
 			gui.reLayout(id, 'del');
 			if( id == 'iMainPath' ){
-				startAPP(false);
-				document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
+				stopAPP();
 			}
 		}
 

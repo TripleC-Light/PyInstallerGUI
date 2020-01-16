@@ -37,7 +37,7 @@ class PathCtrl{
 		}else if( idGroup=='iImportPath' || idGroup=='iDataPath' || idGroup=='iFolderPath' ){
 			var frameId = id.split('_')[0] + '_' + 0;
 			var pathList = [];
-			pathList = this.getPathList(idGroup);
+			pathList = this._getPathList(idGroup);
 			var tmpPath = document.getElementById(id+'_path').value;
 			for( var i=0; i<pathList.length; i++ ){
 				if( pathList[i] == tmpPath ){
@@ -74,6 +74,7 @@ class PathCtrl{
 			}
     		this._savePathList(idGroup, pathList);
 		}
+
 		document.getElementById(id+'_path').value = path_;
 	}
 
@@ -81,15 +82,15 @@ class PathCtrl{
 		switch(idGroup){
 			case 'importPath':
 				this.importPathList = pathList;
-				console.log('importPathList= '+importPathList);
+				console.log('importPathList= ' + this.importPathList);
 				return;
 			case 'iDataPath':
 				this.dataPathList = pathList;
-				console.log('dataPathList= '+dataPathList);
+				console.log('dataPathList= ' + this.dataPathList);
 				return;
 			case 'iFolderPath':
 				this.folderPathList = pathList;
-				console.log('folderPathList= '+folderPathList);
+				console.log('folderPathList= ' + this.folderPathList);
 				return;
 		}
 	}

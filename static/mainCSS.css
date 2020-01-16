@@ -66,11 +66,13 @@
 	border-radius: 5px;
 	box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
 	display: inline-block;
-	font-size: 20px;
+	font-size: 18px;
 	height: 35px;
 	margin: 3px;
 	vertical-align: middle;
 	width: 75%;
+
+	color: rgb(205, 205, 205);
 }
 .cOptionDiv{
 	display: inline-block;
