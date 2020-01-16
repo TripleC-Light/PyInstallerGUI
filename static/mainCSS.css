@@ -10,7 +10,7 @@
 	/*border: 2px solid #FFF;*/
 	/*border: 5px solid rgb(248, 198, 57);*/
 	/*border: 5px solid rgb(54, 116, 168);*/
-	border: 5px solid rgb(33, 215, 137);
+	border: 2px solid rgb(33, 215, 137);
 	border-radius: 0px 30px 0px 30px;
 	/*background-image: linear-gradient(to top, #AAA 100%, #EEE 0%);*/
 	background-color: rgb(49, 51, 53);
@@ -108,7 +108,7 @@
 
 .cOK{
 	border: 1px solid rgb(49, 51, 53);
-	color: rgb(33, 215, 137);
+	color: rgb(102, 106, 111);
 	font-size: 40px;
 	line-height: 40px;
 	border-radius: 10px;

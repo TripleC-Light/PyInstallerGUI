@@ -30,7 +30,6 @@ class GUICtrl{
 	reLayout(id, action){
 		var idGroup = id.split('_')[0];
 		this._layoutBtn(id, action);
-
 		if( idGroup=='iImportPath' || idGroup=='iDataPath' || idGroup=='iFolderPath' ){
 			var frameId = id.split('_')[0] + '_' + 0;
 			if( action=='add'){
@@ -45,11 +44,61 @@ class GUICtrl{
 				document.getElementById(frameId + '_list').removeChild(document.getElementById(id + '_option'));
 			}
 		}
-		// else if( idGroup=='iIcon' ){
-		// 	if( action=='add' || action=='edit' ){
-	 //        	iconPath = document.getElementById(id+'_path').value;
-		// 	}
-		// }
+	}
+
+	showInfoFrame(type){
+		switch(type){
+			case 'tips':
+				document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
+				document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
+				document.getElementById('iTipsTitle').innerHTML = '小提示';
+				document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
+				document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
+				document.getElementById('iTipsTitle').style.borderBottom = 'none';
+				document.getElementById('iTipsFrame').classList.remove('hideTranslate');
+				document.getElementById('iTipsFrame').style.display = 'inline-block';
+				break;
+		}
+	}
+
+	showInfo(InfoType, id){
+		showFrame();
+	}
+
+	showTips(id){
+		this.showInfoFrame('tips')
+		var idGroup = id.split('_')[0];
+		// document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
+		// document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
+		// document.getElementById('iTipsTitle').innerHTML = '小提示';
+		// document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
+		// document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
+		// document.getElementById('iTipsTitle').style.borderBottom = 'none';
+		var tips = '';
+		switch(idGroup){
+			case 'iMainPath':
+				tips = '請選擇主要的程式進行轉換';
+				break;
+			case 'iImportPath':
+				tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
+				break;
+			case 'iDataPath':
+				tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
+				break;
+			case 'iFolderPath':
+				tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
+				break;
+			case 'iAdvanced':
+				tips = '進階設定';
+				break;
+		}
+		// document.getElementById('iTipsFrame').classList.remove('hideTranslate');
+		// document.getElementById('iTipsFrame').style.display = 'inline-block';
+		document.getElementById('iTips').innerHTML = tips;
+	}
+
+	hideTips(){
+		document.getElementById('iTipsFrame').classList.add('hideTranslate');
 	}
 
 	_layoutBtn(id, action){

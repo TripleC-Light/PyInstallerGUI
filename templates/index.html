@@ -27,7 +27,6 @@
 				createPathBlock('iMainDiv', item);
         	})
         	stateApp = false;
-        	document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
         }
 
 		function startAPP(){
@@ -120,41 +119,11 @@
 
 
 		function showTips(id){
-			idClass = id.split('_')[0];
-			// console.log('idClass from Tips: ' + idClass);
-
-			document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
-			document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
-			document.getElementById('iTipsTitle').innerHTML = '小提示';
-			document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
-			document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
-			document.getElementById('iTipsTitle').style.borderBottom = 'none';
-
-			var tips = '';
-			switch(idClass){
-				case 'iMainPath':
-					tips = '請選擇主要的程式進行轉換';
-					break;
-				case 'iImportPath':
-					tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
-					break;
-				case 'iDataPath':
-					tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
-					break;
-				case 'iFolderPath':
-					tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
-					break;
-				case 'iAdvanced':
-					tips = '進階設定';
-					break;
-			}
-			document.getElementById('iTipsFrame').classList.remove('hideTranslate');
-			document.getElementById('iTipsFrame').style.display = 'inline-block';
-			document.getElementById('iTips').innerHTML = tips;
+			gui.showTips(id);
 		}
 
 		function hideTips(){
-			document.getElementById('iTipsFrame').classList.add('hideTranslate');
+			gui.hideTips();
 		}
 
 		function submit(){
