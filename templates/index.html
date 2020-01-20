@@ -66,64 +66,19 @@
 		}
 
 		function showError(msg){
-			console.log(msg);
-			document.getElementById('iTips').style.color = '#F00';
-			document.getElementById('iTips').style.border = '5px solid #F00';
-			document.getElementById('iTipsTitle').innerHTML = '錯誤';
-			document.getElementById('iTipsTitle').style.color = '#F00';
-			document.getElementById('iTipsTitle').style.border = '5px solid #F00';
-			document.getElementById('iTipsTitle').style.borderBottom = 'none';
-			switch(msg){
-				case 'noMainPath':
-					document.getElementById('iTips').innerHTML = '請選擇主要的程式進行轉換';
-					break;
-
-				case 'overLapping':
-					document.getElementById('iTips').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
-					break;
-			}
-			$('#iTipsFrame').effect('shake', { times:3, distance:5 }, 50);
+			gui.showInfo('error', msg);
 		}
 
 		function showAbout(item){
-			showTips('');
-			document.getElementById('iTips').style.color = 'rgb(33, 215, 137)';
-			document.getElementById('iTips').style.border = '5px solid rgb(33, 215, 137)';
-			document.getElementById('iTipsTitle').style.color = 'rgb(33, 215, 137)';
-			document.getElementById('iTipsTitle').style.border = '5px solid rgb(33, 215, 137)';
-			document.getElementById('iTipsTitle').style.borderBottom = 'none';
-
-			switch(item){
-				case 'aboutMe':
-					document.getElementById('iTipsTitle').innerHTML = '關於我';
-					document.getElementById('iTips').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
-					break;
-				case 'Gmail':
-					document.getElementById('iTipsTitle').innerHTML = 'G-Mail';
-					document.getElementById('iTips').innerHTML = 'TripleC.Light@gmail.com';
-					break;
-				case 'Blog':
-					document.getElementById('iTipsTitle').innerHTML = '網誌';
-					document.getElementById('iTips').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
-					break;
-				case 'LinkedIn':
-					document.getElementById('iTipsTitle').innerHTML = 'LinkedIn';
-					document.getElementById('iTips').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
-					break;
-				case 'GitHub':
-					document.getElementById('iTipsTitle').innerHTML = 'GitHub';
-					document.getElementById('iTips').innerHTML = 'https://github.com/TripleC-Light';
-					break;
-			}
+			gui.showInfo('about', item);
 		}
 
-
 		function showTips(id){
-			gui.showTips(id);
+			gui.showInfo('tips', id);
 		}
 
 		function hideTips(){
-			gui.hideTips();
+			gui.hideInfo();
 		}
 
 		function submit(){
@@ -154,7 +109,6 @@
 			    xmlhttp.open("GET","/submit?data="+jsonToPC,true);
 			    xmlhttp.send();
 			}else{
-				showTips('');
 				showError('noMainPath');
 			}
 		}

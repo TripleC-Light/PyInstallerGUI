@@ -1,5 +1,7 @@
 class GUICtrl{
-	constructor(e){}
+	constructor(e){
+		this.languagePack = '';
+	}
 
 	newBtn(id, actType){
 		var btnId = id + '_' + actType + 'Btn';
@@ -46,34 +48,63 @@ class GUICtrl{
 		}
 	}
 
-	showInfoFrame(type){
-		switch(type){
+
+	showInfo(InfoType, id){
+		this.showFrame(InfoType);
+		this.showContent(InfoType, id);
+	}
+
+	showFrame(InfoType){
+		switch(InfoType){
 			case 'tips':
 				document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
 				document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
-				document.getElementById('iTipsTitle').innerHTML = '小提示';
 				document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
 				document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
-				document.getElementById('iTipsTitle').style.borderBottom = 'none';
-				document.getElementById('iTipsFrame').classList.remove('hideTranslate');
-				document.getElementById('iTipsFrame').style.display = 'inline-block';
+				break;
+
+			case 'error':
+				document.getElementById('iTips').style.color = '#F00';
+				document.getElementById('iTips').style.border = '5px solid #F00';
+				document.getElementById('iTipsTitle').style.color = '#F00';
+				document.getElementById('iTipsTitle').style.border = '5px solid #F00';
+				break;
+
+			case 'about':
+				document.getElementById('iTips').style.color = 'rgb(33, 215, 137)';
+				document.getElementById('iTips').style.border = '5px solid rgb(33, 215, 137)';
+				document.getElementById('iTipsTitle').style.color = 'rgb(33, 215, 137)';
+				document.getElementById('iTipsTitle').style.border = '5px solid rgb(33, 215, 137)';
+				break;
+		}
+		document.getElementById('iTipsTitle').style.borderBottom = 'none';
+		document.getElementById('iTipsFrame').classList.remove('hideTranslate');
+		document.getElementById('iTipsFrame').style.display = 'inline-block';
+	}
+
+	showContent(InfoType, id){
+		switch(InfoType){
+			case 'tips':
+				this.showTips(id);
+				break;
+
+			case 'error':
+				this.showError(id);
+				break;
+
+			case 'about':
+				this.showAbout(id);
 				break;
 		}
 	}
 
-	showInfo(InfoType, id){
-		showFrame();
+	hideInfo(){
+		document.getElementById('iTipsFrame').classList.add('hideTranslate');
 	}
 
 	showTips(id){
-		this.showInfoFrame('tips')
+		document.getElementById('iTipsTitle').innerHTML = '小提示';
 		var idGroup = id.split('_')[0];
-		// document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
-		// document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
-		// document.getElementById('iTipsTitle').innerHTML = '小提示';
-		// document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
-		// document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
-		// document.getElementById('iTipsTitle').style.borderBottom = 'none';
 		var tips = '';
 		switch(idGroup){
 			case 'iMainPath':
@@ -92,13 +123,46 @@ class GUICtrl{
 				tips = '進階設定';
 				break;
 		}
-		// document.getElementById('iTipsFrame').classList.remove('hideTranslate');
-		// document.getElementById('iTipsFrame').style.display = 'inline-block';
 		document.getElementById('iTips').innerHTML = tips;
 	}
 
-	hideTips(){
-		document.getElementById('iTipsFrame').classList.add('hideTranslate');
+	showError(msg){
+		document.getElementById('iTipsTitle').innerHTML = '錯誤';
+		switch(msg){
+			case 'noMainPath':
+				document.getElementById('iTips').innerHTML = '請選擇主要的程式進行轉換';
+				break;
+
+			case 'overLapping':
+				document.getElementById('iTips').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
+				break;
+		}
+		$('#iTipsFrame').effect('shake', { times:3, distance:5 }, 50);
+	}
+
+	showAbout(item){
+		switch(item){
+			case 'aboutMe':
+				document.getElementById('iTipsTitle').innerHTML = '關於我';
+				document.getElementById('iTips').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
+				break;
+			case 'Gmail':
+				document.getElementById('iTipsTitle').innerHTML = 'G-Mail';
+				document.getElementById('iTips').innerHTML = 'TripleC.Light@gmail.com';
+				break;
+			case 'Blog':
+				document.getElementById('iTipsTitle').innerHTML = '網誌';
+				document.getElementById('iTips').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
+				break;
+			case 'LinkedIn':
+				document.getElementById('iTipsTitle').innerHTML = 'LinkedIn';
+				document.getElementById('iTips').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
+				break;
+			case 'GitHub':
+				document.getElementById('iTipsTitle').innerHTML = 'GitHub';
+				document.getElementById('iTips').innerHTML = 'https://github.com/TripleC-Light';
+				break;
+		}
 	}
 
 	_layoutBtn(id, action){

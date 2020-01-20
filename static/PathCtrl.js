@@ -22,7 +22,6 @@ class PathCtrl{
 				this._save(id, action, path_);
 				result = true;
 			}else{
-				showTips('');
 				showError('overLapping');
 			}
         }
