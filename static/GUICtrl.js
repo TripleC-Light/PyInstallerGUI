@@ -48,62 +48,50 @@ class GUICtrl{
 		}
 	}
 
-
 	showInfo(InfoType, id){
-		this.showFrame(InfoType);
-		this.showContent(InfoType, id);
-	}
-
-	showFrame(InfoType){
-		switch(InfoType){
-			case 'tips':
-				document.getElementById('iTips').style.color = ' rgb(248, 198, 57)';
-				document.getElementById('iTips').style.border = '5px solid  rgb(248, 198, 57)';
-				document.getElementById('iTipsTitle').style.color = ' rgb(248, 198, 57)';
-				document.getElementById('iTipsTitle').style.border = '5px solid  rgb(248, 198, 57)';
-				break;
-
-			case 'error':
-				document.getElementById('iTips').style.color = '#F00';
-				document.getElementById('iTips').style.border = '5px solid #F00';
-				document.getElementById('iTipsTitle').style.color = '#F00';
-				document.getElementById('iTipsTitle').style.border = '5px solid #F00';
-				break;
-
-			case 'about':
-				document.getElementById('iTips').style.color = 'rgb(33, 215, 137)';
-				document.getElementById('iTips').style.border = '5px solid rgb(33, 215, 137)';
-				document.getElementById('iTipsTitle').style.color = 'rgb(33, 215, 137)';
-				document.getElementById('iTipsTitle').style.border = '5px solid rgb(33, 215, 137)';
-				break;
-		}
-		document.getElementById('iTipsTitle').style.borderBottom = 'none';
-		document.getElementById('iTipsFrame').classList.remove('hideTranslate');
-		document.getElementById('iTipsFrame').style.display = 'inline-block';
-	}
-
-	showContent(InfoType, id){
-		switch(InfoType){
-			case 'tips':
-				this.showTips(id);
-				break;
-
-			case 'error':
-				this.showError(id);
-				break;
-
-			case 'about':
-				this.showAbout(id);
-				break;
-		}
+		this._showFrame(InfoType);
+		this._showContent(InfoType, id);
 	}
 
 	hideInfo(){
-		document.getElementById('iTipsFrame').classList.add('hideTranslate');
+		document.getElementById('iInfoFrame').classList.add('hideTranslate');
 	}
 
-	showTips(id){
-		document.getElementById('iTipsTitle').innerHTML = '小提示';
+	_showFrame(InfoType){
+		switch(InfoType){
+			case 'tips':
+				document.getElementById('iInfo').style.color = ' rgb(248, 198, 57)';
+				document.getElementById('iInfo').style.border = '5px solid  rgb(248, 198, 57)';
+				document.getElementById('iInfoTitle').style.color = ' rgb(248, 198, 57)';
+				document.getElementById('iInfoTitle').style.border = '5px solid  rgb(248, 198, 57)';
+				break;
+
+			case 'error':
+				document.getElementById('iInfo').style.color = '#F00';
+				document.getElementById('iInfo').style.border = '5px solid #F00';
+				document.getElementById('iInfoTitle').style.color = '#F00';
+				document.getElementById('iInfoTitle').style.border = '5px solid #F00';
+				break;
+		}
+		document.getElementById('iInfoTitle').style.borderBottom = 'none';
+		document.getElementById('iInfoFrame').classList.remove('hideTranslate');
+		document.getElementById('iInfoFrame').style.display = 'inline-block';
+	}
+
+	_showContent(InfoType, id){
+		switch(InfoType){
+			case 'tips':
+				this._showTips(id);
+				break;
+
+			case 'error':
+				this._showError(id);
+				break;
+		}
+	}
+
+	_showTips(id){
+		document.getElementById('iInfoTitle').innerHTML = '小提示';
 		var idGroup = id.split('_')[0];
 		var tips = '';
 		switch(idGroup){
@@ -123,46 +111,21 @@ class GUICtrl{
 				tips = '進階設定';
 				break;
 		}
-		document.getElementById('iTips').innerHTML = tips;
+		document.getElementById('iInfo').innerHTML = tips;
 	}
 
-	showError(msg){
-		document.getElementById('iTipsTitle').innerHTML = '錯誤';
+	_showError(msg){
+		document.getElementById('iInfoTitle').innerHTML = '錯誤';
 		switch(msg){
 			case 'noMainPath':
-				document.getElementById('iTips').innerHTML = '請選擇主要的程式進行轉換';
+				document.getElementById('iInfo').innerHTML = '請選擇主要的程式進行轉換';
 				break;
 
 			case 'overLapping':
-				document.getElementById('iTips').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
+				document.getElementById('iInfo').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
 				break;
 		}
-		$('#iTipsFrame').effect('shake', { times:3, distance:5 }, 50);
-	}
-
-	showAbout(item){
-		switch(item){
-			case 'aboutMe':
-				document.getElementById('iTipsTitle').innerHTML = '關於我';
-				document.getElementById('iTips').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
-				break;
-			case 'Gmail':
-				document.getElementById('iTipsTitle').innerHTML = 'G-Mail';
-				document.getElementById('iTips').innerHTML = 'TripleC.Light@gmail.com';
-				break;
-			case 'Blog':
-				document.getElementById('iTipsTitle').innerHTML = '網誌';
-				document.getElementById('iTips').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
-				break;
-			case 'LinkedIn':
-				document.getElementById('iTipsTitle').innerHTML = 'LinkedIn';
-				document.getElementById('iTips').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
-				break;
-			case 'GitHub':
-				document.getElementById('iTipsTitle').innerHTML = 'GitHub';
-				document.getElementById('iTips').innerHTML = 'https://github.com/TripleC-Light';
-				break;
-		}
+		$('#iInfoFrame').effect('shake', { times:3, distance:5 }, 50);
 	}
 
 	_layoutBtn(id, action){

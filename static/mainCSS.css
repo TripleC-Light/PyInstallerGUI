@@ -2,17 +2,12 @@
 
 .cBody{
 	font-family: 'Noto Sans TC', sans-serif;
-	/*background-image: linear-gradient(to top, #09203f 0%, #537895 100%);*/
 	background-image: linear-gradient(#FFF 0%, #CCC 50%);
 }
 
 .cMain{
-	/*border: 2px solid #FFF;*/
-	/*border: 5px solid rgb(248, 198, 57);*/
-	/*border: 5px solid rgb(54, 116, 168);*/
 	border: 2px solid rgb(33, 215, 137);
 	border-radius: 0px 30px 0px 30px;
-	/*background-image: linear-gradient(to top, #AAA 100%, #EEE 0%);*/
 	background-color: rgb(49, 51, 53);
 	box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.6);
 	margin: 25px;
@@ -94,7 +89,6 @@
 	text-align: center;
 	user-select: none;
 	width: 35px;
-/*	transition: all 0.2s ease-out 0.1s;*/
 }
 .cBtn:hover{
 	border-radius: 5px;
@@ -174,7 +168,7 @@
 	width: 35px;
 }
 
-.cTipsFrame{
+.cInfoFrame{
 	text-align: left;
 	left: 30px;
 	bottom: 70px;
@@ -183,12 +177,12 @@
     display: none;
     opacity: 1;
 }
-.cTipsFrame.hideTranslate{
+.cInfoFrame.hideTranslate{
     transition: 1s;
     opacity: 0 !important;
 }
 
-.cTipsTitle{
+.cInfoTitle{
 	position: relative;
 	text-align: center;
 	left: 0px;
@@ -203,12 +197,9 @@
     z-index: 999;
 }
 
-.cTips{
+.cInfo{
 	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
-	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);*/
 	font-size: 20px;
-	/*color: rgb(248, 198, 57);*/
-	/*color: rgb(237, 177, 9);*/
 	color: rgb(0, 0, 0);
 	padding: 15px;
 	position: relative;

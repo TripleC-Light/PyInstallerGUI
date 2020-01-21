@@ -7,12 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="./static/mainCSS.css">
 	<script type="text/javascript" src="/static/GUICtrl.js"></script>
 	<script type="text/javascript" src="/static/PathCtrl.js"></script>
-	<script type="text/javascript" src="/static/createElement.js"></script>
+	<script type="text/javascript" src="/static/DOMCtrl.js"></script>
 	<title>PyInstaller GUI</title>
 	<script language=javascript>
 		var stateApp = new Boolean(false);
 		var gui = new GUICtrl();
 		var path = new PathCtrl();
+		var dom = new DOMCtrl();
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
@@ -24,7 +25,8 @@
 
         function init(){
         	listItem.forEach(function(item) {
-				createPathBlock('iMainDiv', item);
+				dom.newBlock('iMainDiv', item);
+				gui.newBtn(item[1], 'add');
         	})
         	stateApp = false;
         }
@@ -77,7 +79,7 @@
 			gui.showInfo('tips', id);
 		}
 
-		function hideTips(){
+		function hideInfo(){
 			gui.hideInfo();
 		}
 
@@ -102,7 +104,7 @@
 				console.log(jsonToPC);
 
 			    var xmlhttp;
-			    xmlhttp=new XMLHttpRequest();
+			    xmlhttp = new XMLHttpRequest();
 			    xmlhttp.onreadystatechange=function(){
 			        if (xmlhttp.readyState==4 && xmlhttp.status==200){}
 			    }
@@ -117,9 +119,9 @@
 
 <body class="cBody">
 <center>
-	<div id='iTipsFrame' class='cTipsFrame'>
-		<div id='iTipsTitle' class='cTipsTitle'></div>
-		<div id='iTips' class='cTips'></div>
+	<div id='iInfoFrame' class='cInfoFrame'>
+		<div id='iInfoTitle' class='cInfoTitle'></div>
+		<div id='iInfo' class='cInfo'></div>
 	</div>
 
 	<div class="cMain" style="width:650px;">
@@ -128,10 +130,11 @@
 			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);" >
 		</div>
 
-		<div class='cPathBlock cBorder' onmouseover="showTips('iAdvanced')" onmouseleave="hideTips()">
+		<div class='cPathBlock cBorder' onmouseover="showTips('iAdvanced')" onmouseleave="hideInfo()">
 			<div class="cItem cBorder">進階設定</div>
 			<div id='iAdvanced_list' class='cListBlock cBorder'>
 				<div class="cInfoInput cBorder" style='height:270px;width:95%;text-align:left;padding-top:15px' id="iAdvanced_path">
+
 					<div class="cAdvanced cBorder">&#11033&nbsp 資料夾名稱</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input class='cAdvancedInput cBorder' type='text' id='iFolderName' placeholder="預設:PyInstaller"/>
@@ -154,17 +157,20 @@
 					<div class="cAdvanced cBorder">&#11033&nbsp 生成單一執行檔</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input type="radio" name="oneFile" value='-F' checked="true"/>是
-						<input type="radio" name="oneFile" value='' />否</div>
+						<input type="radio" name="oneFile" value='' />否
+					</div>
 
 					<div class="cAdvanced cBorder">&#11033&nbsp 清除前次生成檔</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input type="radio" name="clean" value='--clean' checked="true"/>是
-						<input type="radio" name="clean" value='' />否</div>
+						<input type="radio" name="clean" value='' />否
+					</div>
 
 					<div class="cAdvanced cBorder">&#11033&nbsp 顯示命令視窗</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input type="radio" name="command" value='-c' checked="true"/>是
-						<input type="radio" name="command" value='-w' />否</div>
+						<input type="radio" name="command" value='-w' />否
+					</div>
 
 				</div>
 				<div id='iMainPath_option' class='cOptionDiv cBorder' style="width:0%"></div>
@@ -172,7 +178,7 @@
 		</div>
 
 		<div class="cBorder" style="width:95%;margin:25px 0px;">
-			<div id='iOK' class="cOK" onclick="submit()" onmouseleave="hideTips()">&#9658</div>
+			<div id='iOK' class="cOK" onclick="submit()" onmouseleave="hideInfo()">&#9658</div>
 		</div>
 	</div>
 
