@@ -48,9 +48,9 @@ class GUICtrl{
 		}
 	}
 
-	showInfo(InfoType, id){
+	showInfo(InfoType, id, languagePack){
 		this._showFrame(InfoType);
-		this._showContent(InfoType, id);
+		this._showContent(InfoType, id, languagePack);
 	}
 
 	hideInfo(){
@@ -78,51 +78,51 @@ class GUICtrl{
 		document.getElementById('iInfoFrame').style.display = 'inline-block';
 	}
 
-	_showContent(InfoType, id){
+	_showContent(InfoType, id, languagePack){
 		switch(InfoType){
 			case 'tips':
-				this._showTips(id);
+				this._showTips(id, languagePack);
 				break;
 
 			case 'error':
-				this._showError(id);
+				this._showError(id, languagePack);
 				break;
 		}
 	}
 
-	_showTips(id){
-		document.getElementById('iInfoTitle').innerHTML = '小提示';
+	_showTips(id, languagePack){
+		document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_tips'];
 		var idGroup = id.split('_')[0];
 		var tips = '';
 		switch(idGroup){
 			case 'iMainPath':
-				tips = '請選擇主要的程式進行轉換';
+				tips = languagePack['content_iMainPath_tips'];
 				break;
 			case 'iImportPath':
-				tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
+				tips = languagePack['content_iImportPath_tips'];
 				break;
 			case 'iDataPath':
-				tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
+				tips = languagePack['content_iDataPath_tips'];
 				break;
 			case 'iFolderPath':
-				tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
+				tips = languagePack['content_iFolderPath_tips'];
 				break;
 			case 'iAdvanced':
-				tips = '進階設定';
+				tips = languagePack['content_iAdvanced'];
 				break;
 		}
 		document.getElementById('iInfo').innerHTML = tips;
 	}
 
-	_showError(msg){
-		document.getElementById('iInfoTitle').innerHTML = '錯誤';
+	_showError(msg, languagePack){
+		document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_error'];
 		switch(msg){
 			case 'noMainPath':
-				document.getElementById('iInfo').innerHTML = '請選擇主要的程式進行轉換';
+				document.getElementById('iInfo').innerHTML = languagePack['content_noMainPath'];
 				break;
 
 			case 'overLapping':
-				document.getElementById('iInfo').innerHTML = '該檔已經選擇過了, 與目前檔案重複';
+				document.getElementById('iInfo').innerHTML = languagePack['content_overLapping'];
 				break;
 		}
 		$('#iInfoFrame').effect('shake', { times:3, distance:5 }, 50);

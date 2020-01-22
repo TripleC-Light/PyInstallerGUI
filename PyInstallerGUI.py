@@ -58,6 +58,13 @@ class GetPathHandler(tornado.web.RequestHandler):
         resultData['path'] = file_path
         self.write(resultData)
 
+class GetLanguagePackHandler(tornado.web.RequestHandler):
+    def get(self):
+        lang = self.get_argument('lang')
+        print(lang)
+        with open('./static/language/' + lang + '.lang', 'r', encoding='utf8') as f:
+            langPack = f.read()
+        self.write(langPack)
 
 class SubmitHandler(tornado.web.RequestHandler):
     def get(self):
@@ -143,6 +150,7 @@ if __name__ == "__main__":
                     [r'/about', AboutHandler],
                     [r'/getPath', GetPathHandler],
                     [r'/submit', SubmitHandler],
+                    [r'/getLanguagePack', GetLanguagePackHandler],
                     [r'/favicon.ico', tornado.web.StaticFileHandler, {'path': './static/favicon.ico'}]]
 
         webApp = tornado.web.Application(

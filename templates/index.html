@@ -14,6 +14,8 @@
 		var gui = new GUICtrl();
 		var path = new PathCtrl();
 		var dom = new DOMCtrl();
+		var languageNow = 'TW';
+		var langPack = '';
 		var listItem = [['主程式','iMainPath'],
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
@@ -28,6 +30,7 @@
 				dom.newBlock('iMainDiv', item);
 				gui.newBtn(item[1], 'add');
         	})
+        	changeLanguage();
         	stateApp = false;
         }
 
@@ -68,15 +71,15 @@
 		}
 
 		function showError(msg){
-			gui.showInfo('error', msg);
+			gui.showInfo('error', msg, langPack);
 		}
 
 		function showAbout(item){
-			gui.showInfo('about', item);
+			gui.showInfo('about', item, langPack);
 		}
 
 		function showTips(id){
-			gui.showInfo('tips', id);
+			gui.showInfo('tips', id, langPack);
 		}
 
 		function hideInfo(){
@@ -114,6 +117,33 @@
 				showError('noMainPath');
 			}
 		}
+
+		function changeLanguage(){
+			languageNow = document.getElementById('iLanguage').value;
+		    var xmlhttp;
+		    xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		        	langPack = JSON.parse(xmlhttp.responseText);
+		        	for(var key in langPack){
+		        		// console.log('key:' + key + ', value:' + langPack[key]);
+		        		if( key.split('_')[0] != 'content' ){
+		        			document.getElementById(key).innerHTML = langPack[key];
+		        		}
+		        		if( key == 'iFolderName' || key == 'iFileName'){
+		        			document.getElementById(key).setAttribute("placeholder",langPack[key]);
+		        		}
+		        	}
+		        	if( languageNow == 'EN' ){
+		        		document.getElementById('iInfo').style.wordBreak = 'keep-all';
+		        	}else{
+		        		document.getElementById('iInfo').style.wordBreak = 'break-all';
+		        	}
+		        }
+		    }
+		    xmlhttp.open("GET","/getLanguagePack?lang="+languageNow,true);
+		    xmlhttp.send();
+		}
 	</script>
 </head>
 
@@ -124,6 +154,14 @@
 		<div id='iInfo' class='cInfo'></div>
 	</div>
 
+	<div style="width:650px;text-align:left">
+		<img id='iIconPic' src="/static/Language.png" border="" style="height:25px;width:25px;vertical-align:middle;font-family:'Noto Sans TC', sans-serif;" />
+		<select id="iLanguage" style="height:20px;font-size:12px;" onchange="changeLanguage()">
+			<option value="TW" selected="selected">正體中文 Traditional Chinese</option>
+			<option value="EN">English 英文</option>
+		</select>
+	</div>
+
 	<div class="cMain" style="width:650px;">
 		<div id='iMainDiv' class="cBorder">
 			<div class='cTitle'>PyInstaller GUI</div>
@@ -131,45 +169,45 @@
 		</div>
 
 		<div class='cPathBlock cBorder' onmouseover="showTips('iAdvanced')" onmouseleave="hideInfo()">
-			<div class="cItem cBorder">進階設定</div>
+			<div id='iAdvanced' class="cItem cBorder">進階設定</div>
 			<div id='iAdvanced_list' class='cListBlock cBorder'>
 				<div class="cInfoInput cBorder" style='height:270px;width:95%;text-align:left;padding-top:15px' id="iAdvanced_path">
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 資料夾名稱</div>
+					<div id='iAdvanced_folder' class="cAdvanced cBorder">&#11033&nbsp 資料夾名稱</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input class='cAdvancedInput cBorder' type='text' id='iFolderName' placeholder="預設:PyInstaller"/>
 					</div>
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 執行檔名稱</div>
+					<div id='iAdvanced_appName' class="cAdvanced cBorder">&#11033&nbsp 執行檔名稱</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<input class='cAdvancedInput cBorder' type='text' id='iFileName' placeholder="預設與原檔名一樣"/>
 					</div>
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 自訂 icon:</div>
+					<div id='iAdvanced_icon' class="cAdvanced cBorder">&#11033&nbsp 自訂 icon</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
 						<img id='iIconPic' src="/static/pythonIcon.png" border="" style="height:25px;width:25px;vertical-align:middle;" />
-						<input class='cAdvancedInput cBorder' style='width:125px' dir='rtl' type='text' id='iIcon_path'/>
+						<input class='cAdvancedInput cBorder' style='width:125px' dir='rtl' type='text' id='iIcon_path' autocomplete='off'/>
 						<div id='iIcon_option' class='cOptionDiv cBorder' style='width:auto'>
 							<div id='iIcon_addBtn' class="cBtn" style="font-weight:bolder" onclick="getPath('iIcon', 'add')">+</div>
 						</div>
 					</div>
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 生成單一執行檔</div>
+					<div id='iAdvanced_oneFile' class="cAdvanced cBorder">&#11033&nbsp 生成單一執行檔</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
-						<input type="radio" name="oneFile" value='-F' checked="true"/>是
-						<input type="radio" name="oneFile" value='' />否
+						<input type="radio" name="oneFile" value='-F' checked="true"/><span id='iAdvanced_oneFile_Y'>是</span>
+						<input type="radio" name="oneFile" value='' /><span id='iAdvanced_oneFile_N'>否</span>
 					</div>
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 清除前次生成檔</div>
+					<div id='iAdvanced_clean' class="cAdvanced cBorder">&#11033&nbsp 清除前次生成檔</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
-						<input type="radio" name="clean" value='--clean' checked="true"/>是
-						<input type="radio" name="clean" value='' />否
+						<input type="radio" name="clean" value='--clean' checked="true"/><span id='iAdvanced_clean_Y'>是</span>
+						<input type="radio" name="clean" value='' /><span id='iAdvanced_clean_N'>否</span>
 					</div>
 
-					<div class="cAdvanced cBorder">&#11033&nbsp 顯示命令視窗</div>
+					<div id='iAdvanced_showCommand' class="cAdvanced cBorder">&#11033&nbsp 顯示命令視窗</div>
 					<div class="cAdvanced cAdvancedAlignLeft cBorder" style="width:250px">
-						<input type="radio" name="command" value='-c' checked="true"/>是
-						<input type="radio" name="command" value='-w' />否
+						<input type="radio" name="command" value='-c' checked="true"/><span id='iAdvanced_showCommand_Y'>是</span>
+						<input type="radio" name="command" value='-w' /><span id='iAdvanced_showCommand_N'>否</span>
 					</div>
 
 				</div>

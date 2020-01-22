@@ -10,7 +10,7 @@
 	border-radius: 0px 30px 0px 30px;
 	background-color: rgb(49, 51, 53);
 	box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.6);
-	margin: 25px;
+	/*margin: 25px;*/
 }
 
 .cTitle{
@@ -48,12 +48,12 @@
 	text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
 	margin-top: 9px;
 	vertical-align: top;
-	width: 15%;
+	width: 17%;
 }
 .cListBlock{
 	display: inline-block;
 	vertical-align: middle;
-	width: 80%;
+	width: 78%;
 }
 .cInfoInput{
 	border: 1px solid rgb(205, 205, 205);
@@ -66,7 +66,6 @@
 	margin: 3px;
 	vertical-align: middle;
 	width: 75%;
-
 	color: rgb(205, 205, 205);
 }
 .cOptionDiv{
