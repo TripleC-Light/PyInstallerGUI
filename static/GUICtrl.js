@@ -72,6 +72,13 @@ class GUICtrl{
 				document.getElementById('iInfoTitle').style.color = '#F00';
 				document.getElementById('iInfoTitle').style.border = '5px solid #F00';
 				break;
+
+			case 'about':
+				document.getElementById('iInfo').style.color = 'rgb(33, 215, 137)';
+				document.getElementById('iInfo').style.border = '5px solid rgb(33, 215, 137)';
+				document.getElementById('iInfoTitle').style.color = 'rgb(33, 215, 137)';
+				document.getElementById('iInfoTitle').style.border = '5px solid rgb(33, 215, 137)';
+				break;
 		}
 		document.getElementById('iInfoTitle').style.borderBottom = 'none';
 		document.getElementById('iInfoFrame').classList.remove('hideTranslate');
@@ -86,6 +93,10 @@ class GUICtrl{
 
 			case 'error':
 				this._showError(id, languagePack);
+				break;
+
+			case 'about':
+				this._showAbout(id, languagePack);
 				break;
 		}
 	}
@@ -126,6 +137,32 @@ class GUICtrl{
 				break;
 		}
 		$('#iInfoFrame').effect('shake', { times:3, distance:5 }, 50);
+	}
+
+	_showAbout(item, languagePack){
+		document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_tips'];
+		switch(item){
+			case 'aboutMe':
+				document.getElementById('iInfoTitle').innerHTML = '關於我';
+				document.getElementById('iInfo').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
+				break;
+			case 'Gmail':
+				document.getElementById('iInfoTitle').innerHTML = 'G-Mail';
+				document.getElementById('iInfo').innerHTML = 'TripleC.Light@gmail.com';
+				break;
+			case 'Blog':
+				document.getElementById('iInfoTitle').innerHTML = '網誌';
+				document.getElementById('iInfo').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
+				break;
+			case 'LinkedIn':
+				document.getElementById('iInfoTitle').innerHTML = 'LinkedIn';
+				document.getElementById('iInfo').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
+				break;
+			case 'GitHub':
+				document.getElementById('iInfoTitle').innerHTML = 'GitHub';
+				document.getElementById('iInfo').innerHTML = 'https://github.com/TripleC-Light';
+				break;
+		}
 	}
 
 	_layoutBtn(id, action){

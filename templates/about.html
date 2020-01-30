@@ -6,71 +6,71 @@
 	<title>PyInstaller GUI About</title>
 	<script language=javascript>
 		function showAbout(item){
-			showInfo('');
-			window.parent.document.getElementById('iInfo').style.color = 'rgb(33, 215, 137)';
-			window.parent.document.getElementById('iInfo').style.border = '5px solid rgb(33, 215, 137)';
-			window.parent.document.getElementById('iInfoTitle').style.color = 'rgb(33, 215, 137)';
-			window.parent.document.getElementById('iInfoTitle').style.border = '5px solid rgb(33, 215, 137)';
-			window.parent.document.getElementById('iInfoTitle').style.borderBottom = 'none';
+			// showInfo('');
+			// window.parent.document.getElementById('iInfo').style.color = 'rgb(33, 215, 137)';
+			// window.parent.document.getElementById('iInfo').style.border = '5px solid rgb(33, 215, 137)';
+			// window.parent.document.getElementById('iInfoTitle').style.color = 'rgb(33, 215, 137)';
+			// window.parent.document.getElementById('iInfoTitle').style.border = '5px solid rgb(33, 215, 137)';
+			// window.parent.document.getElementById('iInfoTitle').style.borderBottom = 'none';
 
-			switch(item){
-				case 'aboutMe':
-					window.parent.document.getElementById('iInfoTitle').innerHTML = '關於我';
-					window.parent.document.getElementById('iInfo').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
-					break;
-				case 'Gmail':
-					window.parent.document.getElementById('iInfoTitle').innerHTML = 'G-Mail';
-					window.parent.document.getElementById('iInfo').innerHTML = 'TripleC.Light@gmail.com';
-					break;
-				case 'Blog':
-					window.parent.document.getElementById('iInfoTitle').innerHTML = '網誌';
-					window.parent.document.getElementById('iInfo').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
-					break;
-				case 'LinkedIn':
-					window.parent.document.getElementById('iInfoTitle').innerHTML = 'LinkedIn';
-					window.parent.document.getElementById('iInfo').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
-					break;
-				case 'GitHub':
-					window.parent.document.getElementById('iInfoTitle').innerHTML = 'GitHub';
-					window.parent.document.getElementById('iInfo').innerHTML = 'https://github.com/TripleC-Light';
-					break;
-			}
+			// switch(item){
+			// 	case 'aboutMe':
+			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = '關於我';
+			// 		window.parent.document.getElementById('iInfo').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
+			// 		break;
+			// 	case 'Gmail':
+			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'G-Mail';
+			// 		window.parent.document.getElementById('iInfo').innerHTML = 'TripleC.Light@gmail.com';
+			// 		break;
+			// 	case 'Blog':
+			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = '網誌';
+			// 		window.parent.document.getElementById('iInfo').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
+			// 		break;
+			// 	case 'LinkedIn':
+			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'LinkedIn';
+			// 		window.parent.document.getElementById('iInfo').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
+			// 		break;
+			// 	case 'GitHub':
+			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'GitHub';
+			// 		window.parent.document.getElementById('iInfo').innerHTML = 'https://github.com/TripleC-Light';
+			// 		break;
+			// }
 		}
 
 		function showInfo(id){
-			idClass = id.split('_')[0];
-			window.parent.document.getElementById('iInfo').style.color = ' rgb(248, 198, 57)';
-			window.parent.document.getElementById('iInfo').style.border = '5px solid  rgb(248, 198, 57)';
-			window.parent.document.getElementById('iInfoTitle').innerHTML = '小提示';
-			window.parent.document.getElementById('iInfoTitle').style.color = ' rgb(248, 198, 57)';
-			window.parent.document.getElementById('iInfoTitle').style.border = '5px solid  rgb(248, 198, 57)';
-			window.parent.document.getElementById('iInfoTitle').style.borderBottom = 'none';
+			// idClass = id.split('_')[0];
+			// window.parent.document.getElementById('iInfo').style.color = ' rgb(248, 198, 57)';
+			// window.parent.document.getElementById('iInfo').style.border = '5px solid  rgb(248, 198, 57)';
+			// window.parent.document.getElementById('iInfoTitle').innerHTML = '小提示';
+			// window.parent.document.getElementById('iInfoTitle').style.color = ' rgb(248, 198, 57)';
+			// window.parent.document.getElementById('iInfoTitle').style.border = '5px solid  rgb(248, 198, 57)';
+			// window.parent.document.getElementById('iInfoTitle').style.borderBottom = 'none';
 
-			var tips = '';
-			switch(idClass){
-				case 'iMainPath':
-					tips = '請選擇主要的程式進行轉換';
-					break;
-				case 'iImportPath':
-					tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
-					break;
-				case 'iDataPath':
-					tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
-					break;
-				case 'iFolderPath':
-					tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
-					break;
-				case 'iAdvanced':
-					tips = '進階設定';
-					break;
-			}
-			window.parent.document.getElementById('iInfoFrame').classList.remove('hideTranslate');
-			window.parent.document.getElementById('iInfoFrame').style.display = 'inline-block';
-			window.parent.document.getElementById('iInfo').innerHTML = tips;
+			// var tips = '';
+			// switch(idClass){
+			// 	case 'iMainPath':
+			// 		tips = '請選擇主要的程式進行轉換';
+			// 		break;
+			// 	case 'iImportPath':
+			// 		tips = '請選擇程式中Import的其他模組, 例如自行撰寫或是轉換程式找不到路徑的模組';
+			// 		break;
+			// 	case 'iDataPath':
+			// 		tips = '請選擇須一起打包至程式資料夾的檔案, 本程式會將這些檔案複製至輸出資料夾中, 例如: 圖片、音效、文字檔等等';
+			// 		break;
+			// 	case 'iFolderPath':
+			// 		tips = '請選擇須一起打包至程式資料夾的資料夾, 本程式會將資料夾連同其內的檔案一併複製至輸出資料夾中';
+			// 		break;
+			// 	case 'iAdvanced':
+			// 		tips = '進階設定';
+			// 		break;
+			// }
+			// window.parent.document.getElementById('iInfoFrame').classList.remove('hideTranslate');
+			// window.parent.document.getElementById('iInfoFrame').style.display = 'inline-block';
+			// window.parent.document.getElementById('iInfo').innerHTML = tips;
 		}
 
 		function hideInfo(){
-			window.parent.document.getElementById('iInfoFrame').classList.add('hideTranslate');
+			// window.parent.document.getElementById('iInfoFrame').classList.add('hideTranslate');
 		}
 
 	</script>
@@ -78,14 +78,15 @@
 
 <body>
 	<center>
-		<div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="showAbout('aboutMe')" onmouseleave="hideInfo()"></div>
-		<div class="cAbout" style="background-image:url('./static/Gmail.png')" onclick="javascript:window.open('mailto:TripleC.Light@gmail.com');" onmouseover="showAbout('Gmail')" onmouseleave="hideInfo()">
+		<!-- <div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="showAbout('aboutMe')" onmouseleave="hideInfo()"></div> -->
+		<div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="parent.window.showAbout('aboutMe')" onmouseleave="parent.window.hideInfo()"></div>
+		<div class="cAbout" style="background-image:url('./static/Gmail.png')" onclick="javascript:window.open('mailto:TripleC.Light@gmail.com');" onmouseover="parent.window.showAbout('Gmail')" onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/Blog.png');" onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" onmouseover="showAbout('Blog')" onmouseleave="hideInfo()">
+		<div class="cAbout" style="background-image:url('./static/Blog.png');" onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" onmouseover="parent.window.showAbout('Blog')" onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/LinkedIn.png');" onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" onmouseover="showAbout('LinkedIn')" onmouseleave="hideInfo()">
+		<div class="cAbout" style="background-image:url('./static/LinkedIn.png');" onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" onmouseover="parent.window.showAbout('LinkedIn')" onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/GitHub.png');" onclick="javascript:window.open('https://github.com/TripleC-Light');" onmouseover="showAbout('GitHub')" onmouseleave="hideInfo()">
+		<div class="cAbout" style="background-image:url('./static/GitHub.png');" onclick="javascript:window.open('https://github.com/TripleC-Light');" onmouseover="parent.window.showAbout('GitHub')" onmouseleave="parent.window.hideInfo()">
 		</div>
 	</center>
 </body>
