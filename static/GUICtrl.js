@@ -140,27 +140,26 @@ class GUICtrl{
 	}
 
 	_showAbout(item, languagePack){
-		document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_tips'];
 		switch(item){
 			case 'aboutMe':
-				document.getElementById('iInfoTitle').innerHTML = '關於我';
-				document.getElementById('iInfo').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
+				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_aboutme'];
+				document.getElementById('iInfo').innerHTML = languagePack['content_aboutme'];
 				break;
 			case 'Gmail':
-				document.getElementById('iInfoTitle').innerHTML = 'G-Mail';
-				document.getElementById('iInfo').innerHTML = 'TripleC.Light@gmail.com';
+				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_gmail'];
+				document.getElementById('iInfo').innerHTML = languagePack['content_gmail'];
 				break;
 			case 'Blog':
-				document.getElementById('iInfoTitle').innerHTML = '網誌';
-				document.getElementById('iInfo').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
+				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_blog'];
+				document.getElementById('iInfo').innerHTML = languagePack['content_blog'];
 				break;
 			case 'LinkedIn':
-				document.getElementById('iInfoTitle').innerHTML = 'LinkedIn';
-				document.getElementById('iInfo').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
+				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_linkedin'];
+				document.getElementById('iInfo').innerHTML = languagePack['content_linkedin'];
 				break;
 			case 'GitHub':
-				document.getElementById('iInfoTitle').innerHTML = 'GitHub';
-				document.getElementById('iInfo').innerHTML = 'https://github.com/TripleC-Light';
+				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_github'];
+				document.getElementById('iInfo').innerHTML = languagePack['content_github'];
 				break;
 		}
 	}
