@@ -150,23 +150,6 @@
 	width: 200px;
 }
 
-.cAbout{
-	height: 25px;
-	width: 25px;
-	border: 0px solid #F00;
-	display: inline-block;
-	margin: 0px 15px;
-	background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-	transition: all 0.15s ease-out 0.1s;
-	cursor: pointer; 
-}
-.cAbout:hover{
-	height: 35px;
-	width: 35px;
-}
-
 .cInfoFrame{
 	text-align: left;
 	left: 30px;

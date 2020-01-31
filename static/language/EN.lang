@@ -36,5 +36,6 @@
 	"content_iInfoTitle_linkedin" : "LinkedIn",
 	"content_linkedin" : "https://www.linkedin.com/in/edward-chou-42058912a",
 	"content_iInfoTitle_github" : "GitHub",
-	"content_github" : "https://github.com/TripleC-Light"
+	"content_github" : "https://github.com/TripleC-Light",
+	"content_CopyOK" : "Already copy G-mail address to clipboard"
 }

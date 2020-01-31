@@ -94,10 +94,6 @@ class GUICtrl{
 			case 'error':
 				this._showError(id, languagePack);
 				break;
-
-			case 'about':
-				this._showAbout(id, languagePack);
-				break;
 		}
 	}
 
@@ -137,31 +133,6 @@ class GUICtrl{
 				break;
 		}
 		$('#iInfoFrame').effect('shake', { times:3, distance:5 }, 50);
-	}
-
-	_showAbout(item, languagePack){
-		switch(item){
-			case 'aboutMe':
-				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_aboutme'];
-				document.getElementById('iInfo').innerHTML = languagePack['content_aboutme'];
-				break;
-			case 'Gmail':
-				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_gmail'];
-				document.getElementById('iInfo').innerHTML = languagePack['content_gmail'];
-				break;
-			case 'Blog':
-				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_blog'];
-				document.getElementById('iInfo').innerHTML = languagePack['content_blog'];
-				break;
-			case 'LinkedIn':
-				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_linkedin'];
-				document.getElementById('iInfo').innerHTML = languagePack['content_linkedin'];
-				break;
-			case 'GitHub':
-				document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_github'];
-				document.getElementById('iInfo').innerHTML = languagePack['content_github'];
-				break;
-		}
 	}
 
 	_layoutBtn(id, action){

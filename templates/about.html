@@ -2,56 +2,102 @@
 <html lang="zh-Hant">
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="./static/mainCSS.css">
 	<title>PyInstaller GUI About</title>
 	<script language=javascript>
-		function showAbout(item){
-			// showInfo('');
-			// window.parent.document.getElementById('iInfo').style.color = 'rgb(33, 215, 137)';
-			// window.parent.document.getElementById('iInfo').style.border = '5px solid rgb(33, 215, 137)';
-			// window.parent.document.getElementById('iInfoTitle').style.color = 'rgb(33, 215, 137)';
-			// window.parent.document.getElementById('iInfoTitle').style.border = '5px solid rgb(33, 215, 137)';
-			// window.parent.document.getElementById('iInfoTitle').style.borderBottom = 'none';
-
-			// switch(item){
-			// 	case 'aboutMe':
-			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = '關於我';
-			// 		window.parent.document.getElementById('iInfo').innerHTML = '一位由成就感驅動的工程師, 技術範圍涵蓋軟、硬、韌體, 甚至機構、製圖也略懂略懂, 擅長系統整合、新產品開發, 有興趣的人歡迎來信聯絡';
-			// 		break;
-			// 	case 'Gmail':
-			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'G-Mail';
-			// 		window.parent.document.getElementById('iInfo').innerHTML = 'TripleC.Light@gmail.com';
-			// 		break;
-			// 	case 'Blog':
-			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = '網誌';
-			// 		window.parent.document.getElementById('iInfo').innerHTML = '愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com';
-			// 		break;
-			// 	case 'LinkedIn':
-			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'LinkedIn';
-			// 		window.parent.document.getElementById('iInfo').innerHTML = 'https://www.linkedin.com/in/edward-chou-42058912a';
-			// 		break;
-			// 	case 'GitHub':
-			// 		window.parent.document.getElementById('iInfoTitle').innerHTML = 'GitHub';
-			// 		window.parent.document.getElementById('iInfo').innerHTML = 'https://github.com/TripleC-Light';
-			// 		break;
-			// }
+		function showAbout(item, languagePack){
+			switch(item){
+				case 'aboutMe':
+					window.parent.document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_aboutme'];
+					window.parent.document.getElementById('iInfo').innerHTML = languagePack['content_aboutme'];
+					break;
+				case 'Gmail':
+					window.parent.document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_gmail'];
+					window.parent.document.getElementById('iInfo').innerHTML = languagePack['content_gmail'];
+					break;
+				case 'Blog':
+					window.parent.document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_blog'];
+					window.parent.document.getElementById('iInfo').innerHTML = languagePack['content_blog'];
+					break;
+				case 'LinkedIn':
+					window.parent.document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_linkedin'];
+					window.parent.document.getElementById('iInfo').innerHTML = languagePack['content_linkedin'];
+					break;
+				case 'GitHub':
+					window.parent.document.getElementById('iInfoTitle').innerHTML = languagePack['content_iInfoTitle_github'];
+					window.parent.document.getElementById('iInfo').innerHTML = languagePack['content_github'];
+					break;
+				case 'CopyOK':
+					copyGmail();
+					alert(languagePack['content_CopyOK']);
+					break;
+			}
 		}
 
+		function copyGmail(languagePack){
+			var copyText = document.getElementById("iGmailText");
+			copyText.select();
+			document.execCommand("copy");
+		}
 	</script>
+	<style>
+		.cAbout{
+			height: 25px;
+			width: 25px;
+			border: 0px solid #F00;
+			display: inline-block;
+			margin: 0px 15px;
+			background-size: contain;
+		    background-repeat: no-repeat;
+		    background-position: center;
+			transition: all 0.15s ease-out 0.1s;
+			cursor: pointer; 
+		}
+		.cAbout:hover{
+			height: 35px;
+			width: 35px;
+		}
+	</style>
 </head>
 
 <body>
 	<center>
-		<!-- <div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="showAbout('aboutMe')" onmouseleave="hideInfo()"></div> -->
-		<div class="cAbout" style="background-image:url('./static/Author.png')" onmouseover="parent.window.showAbout('aboutMe')" onmouseleave="parent.window.hideInfo()"></div>
-		<div class="cAbout" style="background-image:url('./static/Gmail.png')" onclick="javascript:window.open('mailto:TripleC.Light@gmail.com');" onmouseover="parent.window.showAbout('Gmail')" onmouseleave="parent.window.hideInfo()">
+		<div class="cAbout" 
+			style="background-image:url('./static/Author.png')" 
+			onmouseover="parent.window.showAbout('aboutMe')" 
+			onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/Blog.png');" onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" onmouseover="parent.window.showAbout('Blog')" onmouseleave="parent.window.hideInfo()">
+
+		<div class="cAbout" 
+			id='iGmail' 
+			style="background-image:url('./static/Gmail.png')" 
+			onclick="parent.window.showAbout('CopyOK')" 
+			onmouseover="parent.window.showAbout('Gmail')" 
+			onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/LinkedIn.png');" onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" onmouseover="parent.window.showAbout('LinkedIn')" onmouseleave="parent.window.hideInfo()">
+
+		<div class="cAbout" 
+			style="background-image:url('./static/Blog.png');" 
+			onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" 
+			onmouseover="parent.window.showAbout('Blog')" 
+			onmouseleave="parent.window.hideInfo()">
 		</div>
-		<div class="cAbout" style="background-image:url('./static/GitHub.png');" onclick="javascript:window.open('https://github.com/TripleC-Light');" onmouseover="parent.window.showAbout('GitHub')" onmouseleave="parent.window.hideInfo()">
+
+		<div class="cAbout" 
+			style="background-image:url('./static/LinkedIn.png');" 
+			onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" 
+			onmouseover="parent.window.showAbout('LinkedIn')" 
+			onmouseleave="parent.window.hideInfo()">
 		</div>
+
+		<div class="cAbout" 
+			style="background-image:url('./static/GitHub.png');" 
+			onclick="javascript:window.open('https://github.com/TripleC-Light');" 
+			onmouseover="parent.window.showAbout('GitHub')" 
+			onmouseleave="parent.window.hideInfo()">
+		</div>
+
+		<br><input type="text" value="triplec.light@gmail.com" id="iGmailText" style="opacity:0;">
+
 	</center>
 </body>
 </html>

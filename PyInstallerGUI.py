@@ -162,7 +162,6 @@ if __name__ == "__main__":
         webApp.listen(8888)
         url = 'http://localhost:8888'
         # webbrowser.open(url=url, new=0)
-        # print(os.path.split(os.path.realpath(__file__))[0])
         print('Server open in: ' + url)
         tornado.ioloop.IOLoop.instance().start()
 

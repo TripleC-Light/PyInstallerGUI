@@ -76,6 +76,7 @@
 
 		function showAbout(item){
 			gui.showInfo('about', item, langPack);
+			document.getElementById('iAbout').contentWindow.showAbout(item, langPack);
 		}
 
 		function showTips(id){
@@ -221,7 +222,7 @@
 	</div>
 
 	<hr style="size:5px;width:80%;border-color:rgb(49, 51, 53);">
-	<iframe src="./about" frameborder="0" style="width:100%;height:45px;" scrolling="no"></iframe>
+	<iframe id='iAbout' src="./about" frameborder="0" style="width:100%;height:45px;" scrolling="no"></iframe>
 </center>
 </body>
 </html>

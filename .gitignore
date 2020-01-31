@@ -4,3 +4,9 @@ PyInstallerGUI_beta/static/favicon.ico
 PyInstallerGUI_beta/static/pyinstaller.exe
 PyInstallerGUI_beta/static/pythonIcon.png
 PyInstallerGUI_beta/templates/index.html
+備註.txt
+圖片.pptx
+PyInstaller/.spec
+PyInstaller/build/.spec/.spec.exe.manifest
+PyInstaller/build/.spec/base_library.zip
+.gitignore
