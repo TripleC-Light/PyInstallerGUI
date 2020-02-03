@@ -77,6 +77,8 @@
 		function showAbout(item){
 			gui.showInfo('about', item, langPack);
 			document.getElementById('iAbout').contentWindow.showAbout(item, langPack);
+			// document.getElementById('iAbout').contentWindow.changeLanguage(languageNow);
+
 		}
 
 		function showTips(id){
@@ -140,6 +142,11 @@
 		        	}else{
 		        		document.getElementById('iInfo').style.wordBreak = 'break-all';
 		        	}
+		        	// try{
+		        	// 	document.getElementById('iAbout').contentWindow.changeLanguage(languageNow);
+		        	// }catch(e){
+		        	// 	console.log('catch(e)');
+		        	// }
 		        }
 		    }
 		    xmlhttp.open("GET","/getLanguagePack?lang="+languageNow,true);

@@ -4,6 +4,23 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PyInstaller GUI About</title>
 	<script language=javascript>
+		var languageNow = 'TW';
+
+		function changeLanguage(languageSet){
+			if( languageSet != null ){
+				console.log(languageSet);
+				languageNow = languageSet;
+				var fso = new ActiveXObject(Scripting.FileSystemObject);
+				// var f = fso.opentextfile('../static/language_server/'+languageNow+'.lang', 1, true);
+				var f = fso.opentextfile('EN.lang', 1, true);
+				var languagePack = f.ReadLine();
+				f.close();
+				console.log('languagePack:' + languagePack);
+			}else{
+				console.log('2');
+			}
+		}
+
 		function showAbout(item, languagePack){
 			switch(item){
 				case 'aboutMe':
@@ -39,6 +56,7 @@
 			document.execCommand("copy");
 		}
 	</script>
+
 	<style>
 		.cAbout{
 			height: 25px;
