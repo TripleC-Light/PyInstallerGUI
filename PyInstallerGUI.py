@@ -12,21 +12,21 @@ class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
 
-class AboutHandler(tornado.web.RequestHandler):
+class GetLanguagePackHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('about.html')
+        lang = self.get_argument('lang')
+        with open('./static/language/' + lang + '.lang', 'r', encoding='utf8') as f:
+            langPack = f.read()
+        self.write(langPack)
 
 class GetPathHandler(tornado.web.RequestHandler):
     def get(self):
         CMD = self.get_argument('cmd')
-        print(CMD)
         tkCase = 0
         resultData = {}
         file_path = []
         CMD = CMD.split('_')[0]
-        if CMD == 'iMainPath':
-            tkCase = 0
-        elif CMD == 'iImportPath':
+        if CMD == 'iMainPath' or CMD == 'iImportPath':
             tkCase = 0
         elif CMD == 'iDataPath':
             tkCase = 1
@@ -47,24 +47,15 @@ class GetPathHandler(tornado.web.RequestHandler):
             file_path.append(filedialog.askdirectory(title='Select a Folder'))
         elif tkCase == 3:
             file_path.append(filedialog.askopenfilename(title='Select Icon file', filetypes=[('Icon', '*.ico')]))       # 取得檔案名
-            im = Image.open(file_path[0])
+            iconPic = Image.open(file_path[0])
             iconName = file_path[0].split('/')
             iconName = iconName[len(iconName)-1]
-            print(iconName)
-            im.save('./static/tmpForPyInstaller/' + iconName)
+            iconName = iconName.replace('.ico', '.png')
+            iconPic.save('./static/tmp/' + iconName)
 
         tk.destroy()
-        print(file_path)
         resultData['path'] = file_path
         self.write(resultData)
-
-class GetLanguagePackHandler(tornado.web.RequestHandler):
-    def get(self):
-        lang = self.get_argument('lang')
-        print(lang)
-        with open('./static/language/' + lang + '.lang', 'r', encoding='utf8') as f:
-            langPack = f.read()
-        self.write(langPack)
 
 class SubmitHandler(tornado.web.RequestHandler):
     def get(self):
@@ -135,7 +126,7 @@ class SubmitHandler(tornado.web.RequestHandler):
             distPath = distPath.replace('/', '\\')
             subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        tmpPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\tmpForPyInstaller\\*.*'
+        tmpPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\tmp\\*.*'
         print('tmpPath >> ', tmpPath)
         p = subprocess.Popen(['del', '/Q', tmpPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _stdoutput, _erroutput = p.communicate()
@@ -147,7 +138,6 @@ class SubmitHandler(tornado.web.RequestHandler):
 if __name__ == "__main__":
     try:
         handlers = [[r'/', IndexHandler],
-                    [r'/about', AboutHandler],
                     [r'/getPath', GetPathHandler],
                     [r'/submit', SubmitHandler],
                     [r'/getLanguagePack', GetLanguagePackHandler],

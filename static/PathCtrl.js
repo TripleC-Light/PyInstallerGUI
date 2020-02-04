@@ -16,7 +16,8 @@ class PathCtrl{
 					var iconName = path_;
 					iconName = iconName.split('/');
 					iconName = iconName[iconName.length-1];
-					document.getElementById('iIconPic').src = './static/tmpForPyInstaller/' + iconName;
+					iconName = iconName.replace('.ico', '.png');
+					document.getElementById('iIconPic').src = '/static/tmp/' + iconName;
 					this.iconPath = path_;
 				}
 				this._save(id, action, path_);

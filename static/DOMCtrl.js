@@ -17,8 +17,8 @@ class DOMCtrl{
 		this._createFrame(parent, id);
 		this._createItem(id+'_frame', item);
 		this._createListDiv(id+'_frame', id);
-		this._createPath(id+'_list', id);
-		this._createOption(id+'_list', id);
+		this.createPath(id+'_list', id);
+		this.createOption(id+'_list', id);
 	}
 
 	_createFrame(parent, id){
@@ -52,7 +52,7 @@ class DOMCtrl{
 		parent.appendChild(block);
 	}
 
-	_createPath(parent, id){
+	createPath(parent, id){
 		var blockId = id + '_path';
 		var parent = document.getElementById(parent);
 		var block = document.createElement('input');
@@ -65,7 +65,7 @@ class DOMCtrl{
 		parent.appendChild(block);
 	}
 
-	_createOption(parent, id){
+	createOption(parent, id){
 		var blockId = id + '_option';
 		var parent = document.getElementById(parent);
 		var block = document.createElement('div');

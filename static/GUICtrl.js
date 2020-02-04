@@ -30,6 +30,7 @@ class GUICtrl{
 	}
 
 	reLayout(id, action){
+		var dom = new DOMCtrl();
 		var idGroup = id.split('_')[0];
 		this._layoutBtn(id, action);
 		if( idGroup=='iImportPath' || idGroup=='iDataPath' || idGroup=='iFolderPath' ){
@@ -38,8 +39,8 @@ class GUICtrl{
     			var timeInMilliseconds = new Date();
     			var UID = timeInMilliseconds.getTime();
     			var newId = idGroup + '_' + UID;
-				createPath(frameId+'_list', newId);
-				createOption(frameId+'_list', newId);
+				dom.createPath(frameId+'_list', newId);
+				dom.createOption(frameId+'_list', newId);
 	        	this.newBtn(newId, 'add');
 			}else if( action=='del' ){
 				document.getElementById(frameId + '_list').removeChild(document.getElementById(id + '_path'));
