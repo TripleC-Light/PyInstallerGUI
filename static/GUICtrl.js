@@ -59,28 +59,24 @@ class GUICtrl{
 	}
 
 	_showFrame(InfoType){
+		var colorStyle = '';
 		switch(InfoType){
 			case 'tips':
-				document.getElementById('iInfo').style.color = ' rgb(248, 198, 57)';
-				document.getElementById('iInfo').style.border = '5px solid  rgb(248, 198, 57)';
-				document.getElementById('iInfoTitle').style.color = ' rgb(248, 198, 57)';
-				document.getElementById('iInfoTitle').style.border = '5px solid  rgb(248, 198, 57)';
+				colorStyle = 'rgb(214, 163, 7)';
 				break;
 
 			case 'error':
-				document.getElementById('iInfo').style.color = '#F00';
-				document.getElementById('iInfo').style.border = '5px solid #F00';
-				document.getElementById('iInfoTitle').style.color = '#F00';
-				document.getElementById('iInfoTitle').style.border = '5px solid #F00';
+				colorStyle = 'rgb(255, 0, 0)';
 				break;
 
 			case 'about':
-				document.getElementById('iInfo').style.color = 'rgb(33, 215, 137)';
-				document.getElementById('iInfo').style.border = '5px solid rgb(33, 215, 137)';
-				document.getElementById('iInfoTitle').style.color = 'rgb(33, 215, 137)';
-				document.getElementById('iInfoTitle').style.border = '5px solid rgb(33, 215, 137)';
+				colorStyle = 'rgb(28, 179, 115)';
 				break;
 		}
+		document.getElementById('iInfo').style.color = colorStyle;
+		document.getElementById('iInfo').style.border = '5px solid ' + colorStyle;
+		document.getElementById('iInfoTitle').style.color = colorStyle;
+		document.getElementById('iInfoTitle').style.border = '5px solid ' + colorStyle;
 		document.getElementById('iInfoTitle').style.borderBottom = 'none';
 		document.getElementById('iInfoFrame').classList.remove('hideTranslate');
 		document.getElementById('iInfoFrame').style.display = 'inline-block';

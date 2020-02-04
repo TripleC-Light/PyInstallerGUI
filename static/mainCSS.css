@@ -10,17 +10,17 @@
 	border-radius: 0px 30px 0px 30px;
 	background-color: rgb(49, 51, 53);
 	box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.6);
-	/*margin: 25px;*/
+	margin-bottom: 20px;
 }
 
 .cTitle{
-	color: rgb(209, 223, 225);
+	color: rgb(225, 235, 226);
 	font-size: 50px;
 	font-weight: bolder;
-	margin: 25px 0px 0px 0px;
-	text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.8),
-	             0px 8px 13px rgba(0, 0, 0, 0.4),
-	             0px 18px 23px rgba(0, 0, 0, 0.4);
+	margin: 10px 0px 0px 0px;
+	text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.9),
+	             0px 8px 13px rgba(0, 0, 0, 0.6),
+	             0px 18px 23px rgba(0, 0, 0, 0.6);
 }
 
 .cBorder{
@@ -41,7 +41,7 @@
 
 
 .cItem{
-	color: rgb(209, 223, 225);
+	color: rgb(225, 235, 226);
 	display: inline-block;
 	font-size: 20px;
 	text-align: right;
