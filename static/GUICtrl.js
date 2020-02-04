@@ -94,6 +94,10 @@ class GUICtrl{
 			case 'error':
 				this._showError(id, languagePack);
 				break;
+
+			case 'about':
+				this._showAbout(languagePack);
+				break;
 		}
 	}
 
@@ -133,6 +137,11 @@ class GUICtrl{
 				break;
 		}
 		$('#iInfoFrame').effect('shake', { times:3, distance:5 }, 50);
+	}
+
+	_showAbout(infoData){
+		document.getElementById('iInfoTitle').innerHTML = infoData[0];
+		document.getElementById('iInfo').innerHTML = infoData[1];
 	}
 
 	_layoutBtn(id, action){
