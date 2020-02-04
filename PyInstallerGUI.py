@@ -50,7 +50,6 @@ class GetPathHandler(tornado.web.RequestHandler):
             iconPic = Image.open(file_path[0])
             iconName = file_path[0].split('/')
             iconName = iconName[len(iconName)-1]
-            iconName = iconName.replace('.ico', '.png')
             iconPic.save('./static/tmp/' + iconName)
 
         tk.destroy()

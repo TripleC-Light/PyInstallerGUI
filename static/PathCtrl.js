@@ -16,7 +16,6 @@ class PathCtrl{
 					var iconName = path_;
 					iconName = iconName.split('/');
 					iconName = iconName[iconName.length-1];
-					iconName = iconName.replace('.ico', '.png');
 					document.getElementById('iIconPic').src = '/static/tmp/' + iconName;
 					this.iconPath = path_;
 				}
