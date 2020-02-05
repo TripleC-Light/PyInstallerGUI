@@ -74,9 +74,9 @@ class GUICtrl{
 				break;
 		}
 		document.getElementById('iInfo').style.color = colorStyle;
-		document.getElementById('iInfo').style.border = '5px solid ' + colorStyle;
+		document.getElementById('iInfo').style.border = '2px solid ' + colorStyle;
 		document.getElementById('iInfoTitle').style.color = colorStyle;
-		document.getElementById('iInfoTitle').style.border = '5px solid ' + colorStyle;
+		document.getElementById('iInfoTitle').style.border = '2px solid ' + colorStyle;
 		document.getElementById('iInfoTitle').style.borderBottom = 'none';
 		document.getElementById('iInfoFrame').classList.remove('hideTranslate');
 		document.getElementById('iInfoFrame').style.display = 'inline-block';

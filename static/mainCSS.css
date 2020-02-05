@@ -15,6 +15,7 @@
 
 .cTitle{
 	color: rgb(225, 235, 226);
+	display: inline-block;
 	font-size: 50px;
 	font-weight: bolder;
 	margin: 10px 0px 0px 0px;
@@ -165,16 +166,16 @@
 }
 
 .cInfoTitle{
-	position: relative;
-	text-align: center;
-	left: 0px;
-	font-size: 22px;
-	font-weight: bolder;
-	color: rgb(248, 198, 57);
 	background-color: #FFF;
     border: 5px solid rgb(248, 198, 57);
     border-bottom: none;
     border-radius: 10px 10px 0px 0px;
+	color: rgb(248, 198, 57);
+	font-size: 22px;
+	font-weight: bolder;
+	left: 0px;
+	position: relative;
+	text-align: center;
     width: 120px;
     z-index: 999;
 }
@@ -185,7 +186,7 @@
 	color: rgb(0, 0, 0);
 	padding: 15px;
 	position: relative;
-	top: -5px;
+	top: -2px;
 	background-color: #FFF;
     border: 5px solid rgb(248, 198, 57);
 	width: 400px;

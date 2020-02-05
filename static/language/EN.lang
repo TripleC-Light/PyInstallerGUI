@@ -26,16 +26,5 @@
 	"content_iAdvanced" : "Advanced Settings",
 	"content_iInfoTitle_error" : "Error",
 	"content_noMainPath" : "Did't select main code to transfer",
-	"content_overLapping" : "This file has already selected",
-	"content_iInfoTitle_aboutme" : "About Me",
-	"content_aboutme" : "I'm an engineer who is driven by feeling of achievement, have ability in software, hardware, firmware and even mechanical, good at System integration and new products develop, if you have interest on me, welcome to contact me at e-mail",
-	"content_iInfoTitle_gmail" : "G-mail",
-	"content_gmail" : "TripleC.Light@gmail.com",
-	"content_iInfoTitle_blog" : "Blog",
-	"content_blog" : "愛德華的空想科學誌<br>https://triplec-light.000webhostapp.com",
-	"content_iInfoTitle_linkedin" : "LinkedIn",
-	"content_linkedin" : "https://www.linkedin.com/in/edward-chou-42058912a",
-	"content_iInfoTitle_github" : "GitHub",
-	"content_github" : "https://github.com/TripleC-Light",
-	"content_CopyOK" : "Already copy G-mail address to clipboard"
+	"content_overLapping" : "This file has already selected"
 }
