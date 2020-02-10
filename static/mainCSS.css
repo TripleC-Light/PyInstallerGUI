@@ -195,3 +195,20 @@
     letter-spacing: 3px;
     word-break: break-all;
 }
+
+.cBlink {
+	color: red;
+	animation: fade 2000ms infinite;
+	display: none;
+}
+@keyframes fade{
+	from{
+		opacity: 1.0;
+	}
+	50%{
+		opacity: 0;
+	}
+	to{
+		opacity: 1.0;
+	}
+}

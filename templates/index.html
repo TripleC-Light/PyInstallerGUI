@@ -20,13 +20,14 @@
 						['Import', 'iImportPath_0'],
 						['資料', 'iDataPath_0'],
 						['資料夾', 'iFolderPath_0']];
-		var aboutURL = 'https://triplec-light.000webhostapp.com/PyInstallerGUI/about.html';
+		var aboutURL = 'http://localhost/PyInstallerGUI/about.html';
 
 		$(document).ready(function (){
 			init();
         });
 
         function init(){
+        	document.getElementById('iAbout').src = aboutURL;
         	listItem.forEach(function(item) {
 				dom.newBlock('iMainDiv', item);
 				gui.newBtn(item[1], 'add');
@@ -92,6 +93,12 @@
 				case 'showAboutContent':
 					showAboutContent(e.data[1]);
 					break;
+				case 'getVersion':
+        			iAbout.contentWindow.postMessage(['version', document.getElementById('iVersion').innerHTML], aboutURL);
+        			break;
+        		case 'newVersion':
+        			document.getElementById('iNew').style.display = 'inline';
+        			break;
 			}
 		};
 
@@ -183,7 +190,13 @@
 		<div id='iMainDiv' class="cBorder">
 			<div class='cTitle cBorder' style='width:20%'></div>
 			<div class='cTitle cBorder'>PyInstaller GUI</div>
-			<div class='cTitle cBorder' style='width:20%;font-size:15px;vertical-align:bottom;text-align:right'>version: 1.0.0</div>
+			<div class='cTitle cBorder' style='width:20%;font-size:15px;vertical-align:bottom;text-align:right'>
+			<span id='iNew' class='cBlink'>
+				<a download='PyInstallerGUI' href="https://triplec-light.000webhostapp.com/PyInstallerGUI/release/PyInstallerGUI_v1.0.0.7z" style="color:red;text-decoration:none;">New Version
+				</a><br>
+			</span>
+			<span id='iVersion'>version: 1.0.0</span>
+			</div>
 			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);" >
 		</div>
 
@@ -240,7 +253,7 @@
 	</div>
 
 	<hr style="size:5px;width:650px;border-color:rgb(49, 51, 53);">
-	<iframe id='iAbout' src="https://triplec-light.000webhostapp.com/PyInstallerGUI/about.html" frameborder="0" style="width:100%;height:45px;" scrolling="no"></iframe>
+	<iframe id='iAbout' src="" frameborder="0" style="width:100%;height:45px;" scrolling="no"></iframe>
 </center>
 </body>
 </html>
