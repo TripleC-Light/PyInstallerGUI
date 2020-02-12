@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PyInstaller GUI About</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script language=javascript>
+		var languageNow = 'TW';
+		var languagePack = '';
+		var mainFrameURL = 'http://localhost:8888';
+
+		$(document).ready(function (){
+			init();
+        });
+
+        function init(){
+        	changeLanguage(languageNow);
+        }
+
+		function changeLanguage(languageSet){
+		    var xmlhttp;
+		    xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		        	languagePack = JSON.parse(xmlhttp.responseText);
+		        }
+		    }
+		    xmlhttp.open("GET","languageProcess.php?lang="+languageSet,true);
+		    xmlhttp.send();
+		}
+
+		function showAbout(item){
+			var showAboutContent = [,];
+			switch(item){
+				case 'aboutMe':
+					showAboutContent[0] = languagePack['content_iInfoTitle_aboutme'];
+					showAboutContent[1] = languagePack['content_aboutme'];
+					break;
+				case 'Gmail':
+					showAboutContent[0] = languagePack['content_iInfoTitle_gmail'];
+					showAboutContent[1] = languagePack['content_gmail'];
+					break;
+				case 'Blog':
+					showAboutContent[0] = languagePack['content_iInfoTitle_blog'];
+					showAboutContent[1] = languagePack['content_blog'];
+					break;
+				case 'LinkedIn':
+					showAboutContent[0] = languagePack['content_iInfoTitle_linkedin'];
+					showAboutContent[1] = languagePack['content_linkedin'];
+					break;
+				case 'GitHub':
+					showAboutContent[0] = languagePack['content_iInfoTitle_github'];
+					showAboutContent[1] = languagePack['content_github'];
+					break;
+				case 'Coffee':
+					showAboutContent[0] = languagePack['content_iInfoTitle_coffee'];
+					showAboutContent[1] = languagePack['content_coffee'];
+					break;
+				case 'CopyOK':
+					copyGmail();
+					alert(languagePack['content_CopyOK']);
+					break;
+			}
+			msgToMainframe('showAboutContent', showAboutContent);
+		}
+
+		function copyGmail(languagePack){
+			var copyText = document.getElementById("iGmailText");
+			copyText.select();
+			document.execCommand("copy");
+		}
+
+		function msgToMainframe(cmd, msg){
+			parent.postMessage([cmd, msg], mainFrameURL);
+		}
+
+		window.onmessage = function(e){
+			if( e.data[0]=='lang' ){
+				changeLanguage(e.data[1]);
+			}else{
+				showAbout(e.data[1]);
+			}
+		};
+
+	</script>
+
+	<style>
+		.cAbout{
+			height: 25px;
+			width: 25px;
+			border: 0px solid #F00;
+			display: inline-block;
+			margin: 0px 15px;
+			background-size: contain;
+		    background-repeat: no-repeat;
+		    background-position: center;
+			transition: all 0.15s ease-out 0.1s;
+			cursor: pointer; 
+		}
+		.cAbout:hover{
+			height: 35px;
+			width: 35px;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<div class="cAbout" 
+			style="background-image:url('./static/Author.png')" 
+			onmouseover="msgToMainframe('showAbout', 'aboutMe')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<div class="cAbout" 
+			id='iGmail' 
+			style="background-image:url('./static/Gmail.png')" 
+			onclick="showAbout('CopyOK')" 
+			onmouseover="msgToMainframe('showAbout', 'Gmail')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<div class="cAbout" 
+			style="background-image:url('./static/Blog.png');" 
+			onclick="javascript:window.open('https://triplec-light.000webhostapp.com');" 
+			onmouseover="msgToMainframe('showAbout', 'Blog')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<div class="cAbout" 
+			style="background-image:url('./static/LinkedIn.png');" 
+			onclick="javascript:window.open('https://www.linkedin.com/in/edward-chou-42058912a');" 
+			onmouseover="msgToMainframe('showAbout', 'LinkedIn')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<div class="cAbout" 
+			style="background-image:url('./static/GitHub.png');" 
+			onclick="javascript:window.open('https://github.com/TripleC-Light');" 
+			onmouseover="msgToMainframe('showAbout', 'GitHub')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<div class="cAbout" 
+			style="background-image:url('./static/BuyMeACoffee.png');" 
+			onclick="javascript:window.open('https://www.buymeacoffee.com/YrFKPo2');" 
+			onmouseover="msgToMainframe('showAbout', 'Coffee')" 
+			onmouseleave="msgToMainframe('hideInfo', 'hideInfo')">
+		</div>
+
+		<br><input type="text" value="triplec.light@gmail.com" id="iGmailText" style="opacity:0;">
+
+	</center>
+</body>
+</html>

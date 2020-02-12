@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<html lang="zh-Hant">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PyInstaller GUI Download</title>
+	<script language=javascript>
+		// var stateApp = new Boolean(false);
+		// var gui = new GUICtrl();
+		// var path = new PathCtrl();
+		// var dom = new DOMCtrl();
+		// var languageNow = 'TW';
+		// var langPack = '';
+		// var listItem = [['主程式','iMainPath'],
+		// 				['Import', 'iImportPath_0'],
+		// 				['資料', 'iDataPath_0'],
+		// 				['資料夾', 'iFolderPath_0']];
+		// var aboutURL = 'http://localhost/PyInstallerGUI/about.html';
+
+		// $(document).ready(function (){
+		// 	init();
+  //       });
+
+  //       function init(){
+  //       	document.getElementById('iAbout').src = aboutURL;
+  //       	listItem.forEach(function(item) {
+		// 		dom.newBlock('iMainDiv', item);
+		// 		gui.newBtn(item[1], 'add');
+  //       	})
+  //       	changeLanguage();
+  //       	stateApp = false;
+  //       }
+
+		// function startAPP(){
+		// 	stateApp = true;
+		// 	document.getElementById('iOK').style.color = 'rgb(33, 215, 137)';
+		// }
+
+		// function stopAPP(){
+		// 	stateApp = false;
+		// 	document.getElementById('iOK').style.color = 'rgb(102, 106, 111)';
+		// }
+
+		// function getPath(id, action){
+		//     var xmlhttp;
+		//     xmlhttp=new XMLHttpRequest();
+		//     xmlhttp.onreadystatechange=function(){
+		//         if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		// 			var pathReturn = JSON.parse(xmlhttp.responseText);
+		// 			if( path.add(id, action, String(pathReturn.path)) ){
+		// 				if( id == 'iMainPath' ){
+		// 					startAPP();
+		// 				}
+		// 				gui.reLayout(id, action);
+		// 			}
+		//         }
+		//     }
+		//     xmlhttp.open("GET","/getPath?cmd="+id,true);
+		//     xmlhttp.send();
+		// }
+
+		// function delPath(id){
+		// 	path.delete(id);
+		// 	gui.reLayout(id, 'del');
+		// 	if( id == 'iMainPath' ){
+		// 		stopAPP();
+		// 	}
+		// }
+
+		// function showError(msg){
+		// 	gui.showInfo('error', msg, langPack);
+		// }
+
+		// function showAbout(item){
+		// 	iAbout.contentWindow.postMessage(['', item], aboutURL);
+		// }
+		// function showAboutContent(data){
+		// 	gui.showInfo('about', '', data);
+		// }
+		// window.onmessage = function(e){
+		// 	switch( e.data[0] ){
+		// 		case 'showAbout':
+		// 			showAbout(e.data[1]);
+		// 			break;
+		// 		case 'hideInfo':
+		// 			hideInfo();
+		// 			break;
+		// 		case 'showAboutContent':
+		// 			showAboutContent(e.data[1]);
+		// 			break;
+		// 		case 'getVersion':
+  //       			iAbout.contentWindow.postMessage(['version', document.getElementById('iVersion').innerHTML], aboutURL);
+  //       			break;
+  //       		case 'newVersion':
+  //       			document.getElementById('iNew').style.display = 'inline';
+  //       			break;
+		// 	}
+		// };
+
+		// function showTips(id){
+		// 	gui.showInfo('tips', id, langPack);
+		// }
+
+		// function hideInfo(){
+		// 	gui.hideInfo();
+		// }
+
+		// function submit(){
+		// 	if( stateApp ){
+		// 		var allData = {
+		// 			fileName: '',
+		// 			folderName: '',
+		// 			optionList: [],
+		// 			mainPath: path.mainPath,
+		// 			importPathList: path.importPathList,
+		// 			dataPathList: path.dataPathList,
+		// 			folderPathList: path.folderPathList,
+		// 			iconPath: path.iconPath
+		// 		}
+		// 		allData.fileName = document.getElementById('iFileName').value;
+		// 		allData.folderName = document.getElementById('iFolderName').value;
+		// 		allData.optionList.push($("[name='oneFile']:checked").val());
+		// 		allData.optionList.push($("[name='clean']:checked").val());
+		// 		allData.optionList.push($("[name='command']:checked").val());
+		// 		var jsonToPC = JSON.stringify(allData);
+		// 		console.log(jsonToPC);
+
+		// 	    var xmlhttp;
+		// 	    xmlhttp = new XMLHttpRequest();
+		// 	    xmlhttp.onreadystatechange=function(){
+		// 	        if (xmlhttp.readyState==4 && xmlhttp.status==200){}
+		// 	    }
+		// 	    xmlhttp.open("GET","/submit?data="+jsonToPC,true);
+		// 	    xmlhttp.send();
+		// 	}else{
+		// 		showError('noMainPath');
+		// 	}
+		// }
+
+		// function changeLanguage(){
+		// 	languageNow = document.getElementById('iLanguage').value;
+		//     var xmlhttp;
+		//     xmlhttp = new XMLHttpRequest();
+		//     xmlhttp.onreadystatechange=function(){
+		//         if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		//         	langPack = JSON.parse(xmlhttp.responseText);
+		//         	for(var key in langPack){
+		//         		if( key.split('_')[0] != 'content' ){
+		//         			document.getElementById(key).innerHTML = langPack[key];
+		//         		}
+		//         		if( key == 'iFolderName' || key == 'iFileName'){
+		//         			document.getElementById(key).setAttribute("placeholder",langPack[key]);
+		//         		}
+		//         	}
+		//         	if( languageNow == 'EN' ){
+		//         		document.getElementById('iInfo').style.wordBreak = 'keep-all';
+		//         	}else{
+		//         		document.getElementById('iInfo').style.wordBreak = 'break-all';
+		//         	}
+		//         	iAbout.contentWindow.postMessage(['lang', languageNow], aboutURL);
+		//         }
+		//     }
+		//     xmlhttp.open("GET","/getLanguagePack?lang="+languageNow,true);
+		//     xmlhttp.send();
+		// }
+	</script>
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+		.cBody{
+			font-family: 'Noto Sans TC', sans-serif;
+			background-image: linear-gradient(#FFF 0%, #CCC 50%);
+		}
+
+		.cMain{
+			border: 2px solid rgb(33, 215, 137);
+			border-radius: 0px 30px 0px 30px;
+			background-color: rgb(49, 51, 53);
+			box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.6);
+			margin-bottom: 20px;
+			height: 500px;
+		}
+
+		.cTitle{
+			color: rgb(225, 235, 226);
+			display: inline-block;
+			font-size: 30px;
+			font-weight: bolder;
+			margin: 20px 0px;
+			text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.9),
+			             0px 8px 13px rgba(0, 0, 0, 0.6),
+			             0px 18px 23px rgba(0, 0, 0, 0.6);
+		}
+
+		.cBorder{
+			border: 0px solid #000;
+		}
+
+		.cPathBlock{
+			border-left: 5px solid rgb(49, 51, 53);
+			vertical-align: middle;
+			width: 95%;
+			margin: 10px;
+		}
+		.cPathBlock:hover{
+			border-left: 5px solid rgb(209, 223, 225);
+			background-color: rgb(54, 56, 58);
+			width: 95%;
+		}
+
+		.cItem{
+			color: rgb(225, 235, 226);
+			display: inline-block;
+			font-size: 20px;
+			text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
+			vertical-align: middle;
+			width:30%;
+		}
+		.cInfoInput{
+			border: 1px solid rgb(205, 205, 205);
+			background-color: rgb(102, 106, 111);
+			border-radius: 5px;
+			box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.9);
+			display: inline-block;
+			font-size: 22px;
+			text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+			height: 35px;
+			vertical-align: middle;
+			color: rgb(15, 15, 15);
+			width: 30%;
+		}
+		.cInfoInput:hover{
+			border: 2px solid rgb(205, 205, 205);
+			color: rgb(205, 205, 205);
+			font-size: 24px;
+		}
+
+	</style>
+</head>
+
+<body class="cBody">
+<center>
+	<div class="cMain" style="width:650px;">
+		<div id='iMainDiv' class="cBorder">
+			<div class='cTitle cBorder' style='width:15%;'></div>
+			<div class='cTitle cBorder'>PyInstaller GUI Download</div>
+			<div class='cTitle cBorder' style='width:15%'></div>
+			<hr style="size:5px;width:95%;border-color:rgb(209, 223, 225);" >
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div id='iAdvanced' class="cItem cBorder" style="width:30%;text-align:center">Version</div>
+			<div id='iAdvanced' class="cItem cBorder" style="width:30%;text-align:center">Download Link</div>
+			<div id='iAdvanced' class="cItem cBorder" style="width:30%;text-align:center">Update Time</div>
+		</div>
+
+		<div class='cPathBlock cBorder'>
+			<div class="cItem cBorder" style="color:rgb(248, 198, 57);">v1.0.0</div>
+			<div class="cInfoInput cBorder" >
+			<a download='PyInstallerGUI.7z' href="https://triplec-light.000webhostapp.com/PyInstallerGUI/release/PyInstallerGUI_v1.0.0.7z" style="color:rgb(205, 205, 205);text-decoration:none;">
+				Download
+			</a>
+			</div>
+			<div class='cItem cBorder' style="color:rgb(248, 198, 57);">2020 / 02 / 11</div>
+		</div>
+	</div>
+
+</center>
+</body>
+</html>
