@@ -2,8 +2,7 @@
 ---
 
 ## Last version
-2020/02/11: v1.0.0 [[Download EXE file here]]
-(https://triplec-light.000webhostapp.com/PyInstallerGUI/download.html)
+2020/02/11: v1.0.0 [[Download EXE file here]](https://triplec-light.000webhostapp.com/PyInstallerGUI/download.html)
 
 ## What is this?
 Original pyinstaller has too much command, and if I have different files or import module on different path, the command will become very loooooooooong~, so I think maybe I can use GUI to solve my problem.
