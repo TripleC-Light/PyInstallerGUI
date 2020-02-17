@@ -20,4 +20,5 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
  1. Click "+" to add your code
  2. Click "&#9658" and wait
  3. OK~
+ 
 <center><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=450></center>
