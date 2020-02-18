@@ -22,4 +22,4 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
   2. Click "&#9658" and wait
   3. Finish~
  
-<div style="text-align: center"><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=490></div>
+<div style="text-align:center"><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=490></div>
