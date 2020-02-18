@@ -12,14 +12,14 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
 ## Usage
 1. If you use exe file, just double click PyInstallerGUI.exe
 2. If you download source code to use, just open and run PyInstallerGUI.py
-3. if your browser doesn't open automatically, you can open by yourself and go to **http://localhost:8888**
+3. if your browser doesn't open automatically, you can open it by yourself and go to **http://localhost:8888**
 4. You can see the GUI below now
-<center><img src="https://triplec-light.000webhostapp.com/PyInstallerGUI/01.jpg" width=400></center>
+<div style="text-align: center"><img src="https://triplec-light.000webhostapp.com/PyInstallerGUI/01.jpg" width=400></div>
 5. You can change language on top selector
 6. The most fast usage has only 3 steps, see below
 
   1. Click "+" to add your code
   2. Click "&#9658" and wait
-  3. OK~
+  3. Finish~
  
-<center><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=470></center>
+<div style="text-align: center"><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=490></div>
