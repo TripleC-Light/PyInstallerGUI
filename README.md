@@ -26,3 +26,5 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
  - E-mail : TripleC.Light@gmail.com
  - LinkedIn : [Edward Chou](https://www.linkedin.com/in/edward-chou-42058912a)
  - Buy Me A Coffee : [Buy Me A Coffee](https://www.buymeacoffee.com/YrFKPo2)
+ - Paypal : [Link]([https://www.paypal.me/TripleCLight?locale.x=zh_TW](https://www.paypal.me/TripleCLight?locale.x=zh_TW))
+ 
