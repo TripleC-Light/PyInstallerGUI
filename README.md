@@ -17,7 +17,7 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
 
   1. Click <img src="https://triplec-light.000webhostapp.com/PyInstallerGUI/04.jpg" width=20> to add your code
   2. Click <img src="https://triplec-light.000webhostapp.com/PyInstallerGUI/03.jpg" width=20> and wait
-  3. Finish~
+  3. Finish~ Now you can find you exe file on folder "Pyinstaller>dist"(default)
  
 <center><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=490></center>
 
