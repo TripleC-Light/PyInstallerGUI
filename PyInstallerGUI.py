@@ -59,9 +59,10 @@ class GetPathHandler(tornado.web.RequestHandler):
 class SubmitHandler(tornado.web.RequestHandler):
     def get(self):
         print('----------------------------------------------------------------')
-        CMD_List = []
+        CMDlist = []
         jsonData = json_decode(self.get_argument('data'))
-        print(jsonData)
+        print("JSON Data from Web: ", jsonData)
+
         fileName = jsonData['fileName']
         folderName = jsonData['folderName']
         optionList = jsonData['optionList']
@@ -71,12 +72,8 @@ class SubmitHandler(tornado.web.RequestHandler):
         folderPathList = jsonData['folderPathList']
         iconPath = jsonData['iconPath']
 
-        pyinstallerPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\pyinstaller'
-        CMD_List.append(pyinstallerPath)
-        print('Pyinstaller >> ', pyinstallerPath)
-
-        CMD_List.append(mainPath)
-        print('mainPath >> ', mainPath)
+        self._addPyinstallerPath(CMDlist)
+        self._addMainPath(CMDlist, mainPath)
 
         if folderName == '':
             folderName = 'PyInstaller'
@@ -88,25 +85,14 @@ class SubmitHandler(tornado.web.RequestHandler):
         buildPath = tmp + folderName + '/build'
         specPath = tmp + folderName
 
-        for importPath in importPathList:
-            CMD_List.append('--hiddenimport=' + importPath)
+        self._addImportPath(CMDlist, importPathList)
+        self._addOption(CMDlist, optionList)
+        self._addFixPath(CMDlist, [distPath, buildPath, specPath])
+        self._addFileName(CMDlist, fileName)
+        self._addIconPath(CMDlist, iconPath)
 
-        for option in optionList:
-            if option != '':
-                CMD_List.append(option)
-
-        CMD_List.append('--distpath=' + distPath)
-        CMD_List.append('--workpath=' + buildPath)
-        CMD_List.append('--specpath=' + specPath)
-
-        if fileName != '':
-            CMD_List.append('--name=' + fileName)
-
-        if iconPath != '':
-            iconPath = iconPath.replace('/', '\\')
-            CMD_List.append('--icon=' + iconPath)
-
-        p = subprocess.Popen(CMD_List, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print('CMDlist: ', CMDlist)
+        p = subprocess.Popen(CMDlist, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _stdoutput, _erroutput = p.communicate()
         _stdoutput = _stdoutput.decode("Big5")
         _erroutput = _erroutput.decode("Big5")
@@ -133,6 +119,38 @@ class SubmitHandler(tornado.web.RequestHandler):
         _erroutput = _erroutput.decode("Big5")
         print('_stdoutput: ', _stdoutput)
         print('_erroutput: ', _erroutput)
+
+    def _addPyinstallerPath(self, CMDlist):
+        pyinstallerPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\pyinstaller'
+        CMDlist.append(pyinstallerPath)
+        print('PyinstallerPath >> ', pyinstallerPath)
+
+    def _addMainPath(self, CMDlist, mainPath):
+        CMDlist.append(mainPath)
+        print('mainPath >> ', mainPath)
+
+    def _addImportPath(self, CMDlist, importPathList):
+        for importPath in importPathList:
+            CMDlist.append('--hiddenimport=' + importPath)
+
+    def _addOption(self, CMDlist, optionList):
+        for option in optionList:
+            if option != '':
+                CMDlist.append(option)
+
+    def _addFixPath(self, CMDlist, fixPath):
+        CMDlist.append('--distpath=' + fixPath[0])
+        CMDlist.append('--workpath=' + fixPath[1])
+        CMDlist.append('--specpath=' + fixPath[2])
+
+    def _addFileName(self, CMDlist, fileName):
+        if fileName != '':
+            CMDlist.append('--name=' + fileName)
+
+    def _addIconPath(self, CMDlist, iconPath):
+        if iconPath != '':
+            iconPath = iconPath.replace('/', '\\')
+            CMDlist.append('--icon=' + iconPath)
 
 if __name__ == "__main__":
     try:
