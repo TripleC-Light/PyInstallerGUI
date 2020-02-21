@@ -21,7 +21,7 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
  
 <center><img src="https://triplec-light.000webhostapp.com/wp-content/uploads/2020/02/image.png" width=490></center>
 
----
+## About Me
  - My Blog : [愛德華空想科學誌](https://triplec-light.000webhostapp.com)
  - E-mail : TripleC.Light@gmail.com
  - LinkedIn : [Edward Chou](https://www.linkedin.com/in/edward-chou-42058912a)
