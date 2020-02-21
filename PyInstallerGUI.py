@@ -58,10 +58,10 @@ class GetPathHandler(tornado.web.RequestHandler):
 
 class SubmitHandler(tornado.web.RequestHandler):
     def get(self):
-        print('----------------------------------------------------------------')
+        print('**--**')
         CMDlist = []
         jsonData = json_decode(self.get_argument('data'))
-        print("JSON Data from Web: ", jsonData)
+        print("* JSON Data from Web: ", jsonData)
 
         fileName = jsonData['fileName']
         folderName = jsonData['folderName']
@@ -77,57 +77,30 @@ class SubmitHandler(tornado.web.RequestHandler):
 
         if folderName == '':
             folderName = 'PyInstaller'
-        distPath = mainPath.split('/')
-        tmp = ''
-        for i in range(0, len(distPath)-1):
-            tmp = tmp + distPath[i] + '/'
-        distPath = tmp + folderName + '/dist'
-        buildPath = tmp + folderName + '/build'
-        specPath = tmp + folderName
+        userAPPfolder = os.path.split(mainPath)[0] + '/'
+        distPath = userAPPfolder + folderName + '/dist'
+        buildPath = userAPPfolder + folderName + '/build'
+        specPath = userAPPfolder + folderName
 
         self._addImportPath(CMDlist, importPathList)
         self._addOption(CMDlist, optionList)
         self._addFixPath(CMDlist, [distPath, buildPath, specPath])
         self._addFileName(CMDlist, fileName)
         self._addIconPath(CMDlist, iconPath)
-
-        print('CMDlist: ', CMDlist)
-        p = subprocess.Popen(CMDlist, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        _stdoutput, _erroutput = p.communicate()
-        _stdoutput = _stdoutput.decode("Big5")
-        _erroutput = _erroutput.decode("Big5")
-        print('_stdoutput: ', _stdoutput)
-        print('_erroutput: ', _erroutput)
-
-        for userFolderPath in folderPathList:
-            userFolderName = userFolderPath.split('/')
-            userFolderName = userFolderName[len(userFolderName)-1]
-            newFolder = tmp + folderName + '/dist/' + userFolderName
-            subprocess.Popen(['md', newFolder], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            subprocess.Popen(['xcopy', userFolderPath, newFolder, '/e', '/s'], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        for dataPath in dataPathList:
-            dataPath = dataPath.replace('/', '\\')
-            distPath = distPath.replace('/', '\\')
-            subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        tmpPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\tmp\\*.*'
-        print('tmpPath >> ', tmpPath)
-        p = subprocess.Popen(['del', '/Q', tmpPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        _stdoutput, _erroutput = p.communicate()
-        _stdoutput = _stdoutput.decode("Big5")
-        _erroutput = _erroutput.decode("Big5")
-        print('_stdoutput: ', _stdoutput)
-        print('_erroutput: ', _erroutput)
+        self._exePyinstaller(CMDlist)
+        self._copyFolder(folderPathList, distPath)
+        self._copyData(dataPathList, distPath)
+        self._deleteTmpData()
+        print('**--**')
 
     def _addPyinstallerPath(self, CMDlist):
         pyinstallerPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\pyinstaller'
         CMDlist.append(pyinstallerPath)
-        print('PyinstallerPath >> ', pyinstallerPath)
+        print('* PyinstallerPath >>', pyinstallerPath)
 
     def _addMainPath(self, CMDlist, mainPath):
         CMDlist.append(mainPath)
-        print('mainPath >> ', mainPath)
+        print('* mainPath >>', mainPath)
 
     def _addImportPath(self, CMDlist, importPathList):
         for importPath in importPathList:
@@ -151,6 +124,41 @@ class SubmitHandler(tornado.web.RequestHandler):
         if iconPath != '':
             iconPath = iconPath.replace('/', '\\')
             CMDlist.append('--icon=' + iconPath)
+
+    def _deleteTmpData(self):
+        tmpPath = os.path.split(os.path.realpath(__file__))[0] + '\\static\\tmp\\*.*'
+        print('* tmpPath >>', tmpPath)
+        p = subprocess.Popen(['del', '/Q', tmpPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _stdoutput, _erroutput = p.communicate()
+        _stdoutput = _stdoutput.decode("Big5")
+        _erroutput = _erroutput.decode("Big5")
+        if _stdoutput != "" or _erroutput != "":
+            print('_stdoutput:', _stdoutput)
+            print('_erroutput:', _erroutput)
+
+    def _copyFolder(self, folderPathList, distPath):
+        for userFolderPath in folderPathList:
+            userFolderName = userFolderPath.split('/')
+            userFolderName = userFolderName[len(userFolderName)-1]
+            newFolder = distPath + '/' + userFolderName
+            subprocess.Popen(['md', newFolder], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.Popen(['xcopy', userFolderPath, newFolder, '/e', '/s'], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    def _copyData(self, dataPathList, distPath):
+        for dataPath in dataPathList:
+            dataPath = dataPath.replace('/', '\\')
+            distPath = distPath.replace('/', '\\')
+            subprocess.Popen(['copy', dataPath, distPath], shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    def _exePyinstaller(self, CMDlist):
+        print('* CMDlist >>', CMDlist)
+        p = subprocess.Popen(CMDlist, shell=True, creationflags=0x08, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _stdoutput, _erroutput = p.communicate()
+        _stdoutput = _stdoutput.decode("Big5")
+        _erroutput = _erroutput.decode("Big5")
+        if _stdoutput != "" or _erroutput != "":
+            print('_stdoutput:', _stdoutput)
+            print('_erroutput:', _erroutput)
 
 if __name__ == "__main__":
     try:
