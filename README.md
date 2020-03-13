@@ -1,4 +1,5 @@
 ## Last version [[Download Link]](https://triplec-light.000webhostapp.com/PyInstallerGUI/download.html)
+2020/03/13: v1.0.2<br>
 2020/02/22: v1.0.1<br>
 2020/02/11: v1.0.0
 >Support Traditional Chinese(<img src="https://triplec-light.000webhostapp.com/PyInstallerGUI/static/flag.png" width=20>) and English
