@@ -17,7 +17,7 @@ This application is coded by **Python** and web frameworks **Tornado**, so it wi
 5. You can change language on top selector 
 <br>6. The most fast usage has only 3 steps, see below
 
-  1. Click <img src="https://github.com/TripleC-Light/PyInstallerGUI/blob/master/image/addMainCode.jpg" width=20> to add your code
+  1. Click <img src="https://github.com/TripleC-Light/PyInstallerGUI/blob/master/image/addMainCode.jpg" height=20> to add your code
   2. Click <img src="https://github.com/TripleC-Light/PyInstallerGUI/blob/master/image/start.jpg" width=20> and wait
   3. Finish~ Now you can find you exe file on folder "Pyinstaller>dist"(default)
 
